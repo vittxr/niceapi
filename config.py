@@ -3,7 +3,7 @@ import os
 class Config:
     SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URL")
     if "postgres://" in SQLALCHEMY_DATABASE_URI: 
-      SQLALCHEMY_DATABASE_URI.replace("postgres://", "postgresql://")
+      SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI.replace("postgres://", "postgresql://")
     #os.getenv("SQLALCHEMY_DATABASE_URI")
     #getenv() faz a mesma coisa que os.environ.get()
     #SQLALCHEMY é um ORM
