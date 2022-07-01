@@ -35,7 +35,7 @@ def get_apidata():
     if request.args: 
         default_url = """
                         <label for="url" class="search-apiData__ipt-url-predefined" name="default-url">
-                            http://127.0.0.1:5000/api/v1/
+                            https://niceeapi.herokuapp.com/api/v1/
                         </label>"
                     """
         
