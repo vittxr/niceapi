@@ -1,0 +1,15 @@
+.view-raw__link {
+    display: block;
+    width: 10%;
+    text-decoration: none; 
+    color: white;
+    background: #F299CA;
+    padding: 0.5rem 1rem;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.view-raw__link:hover {
+    background: white;
+    color: #F299CA;
+}

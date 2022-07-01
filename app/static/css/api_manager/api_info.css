@@ -1,0 +1,32 @@
+.api__info-helper {
+    width: 70%;
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem auto;
+}
+
+.info-helper__title {
+    font-size: 3rem;
+}
+
+.info-helper__description {
+    font-size: 1.5rem;
+}
+
+.info-helper__hints {
+    width: 50%;
+    color: white;
+    background: #F2ACD3;
+    padding: 1rem;
+    margin: 1.5rem 0;
+    font-size: 1.35rem;
+    box-shadow: 1px 1px 20px 1px #f2acd380
+}
+
+.info-helper__hints ul{
+    margin-left: 2.5rem;
+    list-style-type: "\2794";
+}
+
+

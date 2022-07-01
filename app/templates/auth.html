@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}"> 
+<link rel="stylesheet" href="{{ url_for('static', filename='css/auth/auth.css') }}">
+
+    <div class="register__box">
+        {%if auth_mode == "sign_up" %}
+        <form class="register__form" action="{{ url_for('auth.create_account') }}" method="post">
+            <h1 class="register__title">Sign Up</h1>
+        {% else %}
+        <form class="register__form" action="{{ url_for('auth.login') }}" method="post">
+            <h1 class="register__title">Sign In</h1>
+        {% endif %}
+            {%if auth_mode == "sign_up" %}
+            <div class="register__ipt-box">
+                <label for="name" class="register__label">Full Name</label>
+                <input type="text" name="name" id="name" class="register__ipt" placeholder="Name...">
+            </div>
+            {% endif %}
+
+            <div class="register__ipt-box">
+                <label for="email" class="register__label">Email</label>
+                <input type="email" name="email" id="email" class="register__ipt" placeholder="Email adress...">
+            </div>
+
+            {%if auth_mode == "sign_up" %}
+            <div class="register__ipt-box">
+                <label for="cpf"  class="register__label">CPF</label>
+                <input type="text" name="cpf" id="cpf" class="register__ipt" placeholder="CPF...">
+            </div>
+            {% endif %}
+
+            <div class="register__ipt-box">
+                <label for="password" class="register__label">Password</label>
+                <input type="password" name="password" id="password" class="register__ipt"
+                placeholder="Password...">
+            </div>
+            
+            <div class="register__sign-buttons">
+                {%if auth_mode == "sign_up" %}
+                <input type="submit" class="register__submit" value="Sing Up">
+                <a class="register__singIn" href="{{ url_for('auth.auth_page', auth_mode = 'sign_in') }}">
+                    Sing In
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                </a>
+                {% else %}
+                <input type="submit" class="register__submit" value="Sing In">
+                <a class="register__singIn" href="{{ url_for('auth.auth_page', auth_mode = 'sign_up') }}">
+                    Sing Up
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                </a>
+                {% endif %}
+            </div>
+       </form>
+    </div>
+{% endblock %}
