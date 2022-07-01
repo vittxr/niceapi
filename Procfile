@@ -1,1 +1,1 @@
-web: waitress-serve --port=$PORT niceeapi:app
+web: waitress-serve --port=$PORT server:app
