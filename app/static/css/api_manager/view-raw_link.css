@@ -4,8 +4,10 @@
     text-decoration: none; 
     color: white;
     background: #F299CA;
+    border: 1px solid #F299CA;
+    border-radius: 2px;
     padding: 0.5rem 1rem;
-    margin: 0 auto;
+    margin: 1rem auto;
     text-align: center;
 }
 

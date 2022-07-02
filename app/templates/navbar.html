@@ -1,0 +1,9 @@
+<nav class="navbar">
+    <div class="logo"></div>
+
+    <ul class="navbar__list">
+        <a href="{{ url_for('auth.login') }}"><li>Sign In</li></a>
+        <a href="{{ url_for('auth.create_account') }}"><li>Sign Up</li></a>
+        <a href="{{ url_for('main.api_manager') }}" ><li>Main</li></a>
+    </ul>
+</nav>

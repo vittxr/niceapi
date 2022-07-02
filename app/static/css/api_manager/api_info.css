@@ -1,9 +1,10 @@
 .api__info-helper {
-    width: 70%;
+    width: 60%;
     display: flex; 
     flex-direction: column;
     align-items: center;
-    margin: 2rem auto;
+    color: white;
+    font-weight: 900;
 }
 
 .info-helper__title {

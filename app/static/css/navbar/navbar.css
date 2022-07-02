@@ -1,0 +1,50 @@
+.navbar {
+    width: 100%;
+    background: #403C39;
+    padding: 2rem 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar__list {
+    display: flex;
+    list-style-type: none;
+}
+
+.navbar__list a {
+    color: white;
+    text-decoration: none;
+}
+
+
+.navbar__list li {
+    font-size: 1.5rem;
+    letter-spacing: 0.25rem;
+    margin: 0 6rem;
+    cursor: pointer;
+
+    /*declarações para alinhar os pseudoelementos: */
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar__list li::before,
+.navbar__list li::after {
+    content: '';
+    width: 0;
+    height: 3px;
+    background: white;
+    position: absolute;
+    bottom: 0;
+    transition: width .2s ease-out
+}
+
+.navbar__list li:hover::before,
+.navbar__list li:hover::after {
+    width: 100%;
+}
