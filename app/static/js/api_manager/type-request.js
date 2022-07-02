@@ -28,7 +28,6 @@ function ChangeTheDisplayOfRequestFields() {
             break;
 
         case "PUT":
-        case "DELETE":
             select_users.style.display = 'block'  
             request_fields__box.style.display = 'flex';
             form.setAttribute("methods", "post");
@@ -36,7 +35,17 @@ function ChangeTheDisplayOfRequestFields() {
                 request_fields__input[index].setAttribute("required", "")
                   //deixa os campos obrigatórios a ser preenchido.
             });
-            break;    
+            break;
+            
+        case "DELETE": 
+            select_users.style.display = 'block'  
+            request_fields__box.style.display = 'none';
+            form.setAttribute("methods", "post");
+            request_fields__input.forEach((e, index) => {
+                request_fields__input[index].removeAttribute("required", "")
+                //deixa os campos obrigatórios a ser preenchido.
+            });
+            break;
     }
 }
 

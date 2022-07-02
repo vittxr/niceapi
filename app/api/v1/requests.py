@@ -20,14 +20,17 @@ def main():
     match selected_option:
         case ('GET'):
            return redirect(url_for("api_v1.get_apidata", url=url))
+
         case ('POST'):
            return redirect(url_for("api_v1.post_apidata", url=url, name=name, cpf=cpf, email=email, password=password))
+
         case ('PUT'):
            userToBeAltered = request.args.get('selected-user')
-           print(userToBeAltered)
            return redirect(url_for("api_v1.put_apidata", url=url, name=name, cpf=cpf, email=email, password=password, userToBeAltered=userToBeAltered))
+
         case ('DELETE'):
-           return redirect(url_for("api_v1.delete_apidata", url=url, name=name, cpf=cpf, email=email, password=password))
+           userToBeDeleted = request.args.get('selected-user')
+           return redirect(url_for("api_v1.delete_apidata", url=url, name=name, cpf=cpf, email=email, password=password, userToBeDeleted=userToBeDeleted))
     
 
 @api_v1.route("/get_apidata")
@@ -96,7 +99,16 @@ def put_apidata():
 
 @api_v1.route("/delete_apidata")
 def delete_apidata():
-    pass
+    userToBeDeleted = request.args.get('userToBeDeleted')
+    user = User.query.filter_by(email=userToBeDeleted).first()
+ 
+    if user:
+        db.session.delete(user)
+        db.session.commit()
+
+        return redirect(url_for("api_v1.get_apidata", resquest_detail = "request_response -> success"))
+
+    return redirect(url_for("api_v1.get_apidata", resquest_detail = "request_response -> error"))
 
 ##funções auxiliares (usados nas rotas:
 def dataToDict(name, cpf, email, password):
