@@ -1,7 +1,7 @@
 ##Esse arquivo faz as requisições do usuário, requisitadas no front-end
 import requests 
 from app.api.v1 import api_v1
-from flask import jsonify, redirect, render_template, request, url_for, json
+from flask import redirect, render_template, request, url_for, json
 from bs4 import BeautifulSoup #pip install beautifulsoap4
 from app.models import User
 from app import db
@@ -87,14 +87,12 @@ def put_apidata():
         user.email = request.args.get("email")
         user.password = request.args.get("password")
 
-        print(user)
-
         db.session.add(user)
         db.session.commit()
 
-        return redirect(url_for("api_v1.get_apidata", resquest_detail = "request_response -> success"))
+        return redirect(url_for("api_v1.get_apidata", request_detail = "request_response -> success"))
 
-    return redirect(url_for("api_v1.get_apidata", resquest_detail = "request_response -> error"))
+    return redirect(url_for("api_v1.get_apidata", request_detail = "request_response -> error"))
     
 
 @api_v1.route("/delete_apidata")
@@ -106,9 +104,9 @@ def delete_apidata():
         db.session.delete(user)
         db.session.commit()
 
-        return redirect(url_for("api_v1.get_apidata", resquest_detail = "request_response -> success"))
+        return redirect(url_for("api_v1.get_apidata", request_detail = "request_response -> success"))
 
-    return redirect(url_for("api_v1.get_apidata", resquest_detail = "request_response -> error"))
+    return redirect(url_for("api_v1.get_apidata", request_detail = "request_response -> error"))
 
 ##funções auxiliares (usados nas rotas:
 def dataToDict(name, cpf, email, password):
