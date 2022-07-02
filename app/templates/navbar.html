@@ -2,8 +2,8 @@
     <div class="logo"></div>
 
     <ul class="navbar__list">
-        <a href="{{ url_for('auth.login') }}"><li>Sign In</li></a>
-        <a href="{{ url_for('auth.create_account') }}"><li>Sign Up</li></a>
+        <a href="{{ url_for('auth.auth_page', auth_mode='sign_in') }}"><li>Sign In</li></a>
+        <a href="{{ url_for('auth.auth_page', auth_mode='sign_up') }}"><li>Sign Up</li></a>
         <a href="{{ url_for('main.api_manager') }}" ><li>Main</li></a>
     </ul>
 </nav>

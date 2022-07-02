@@ -16,10 +16,10 @@
 }
 
 .info-helper__hints {
-    width: 50%;
+    width: 80%;
     color: white;
     background: #F2ACD3;
-    padding: 1rem;
+    padding: 2rem 1rem;
     margin: 1.5rem 0;
     font-size: 1.35rem;
     box-shadow: 1px 1px 20px 1px #f2acd380
