@@ -1,0 +1,86 @@
+.navbar__profile-img {
+   width: 48px;
+   height: 48px;
+   border-radius: 4px;
+   margin-right: 2rem;
+   cursor: pointer;
+   border: -20px solid white;
+}
+
+.profile__box {
+    width: 220px;
+    height: 180px;
+    border-radius: 12px;
+    display: none;
+    flex-direction: column;
+    background: white;
+    color: #647380;
+    font-weight: 700;
+    position: absolute;
+    top: 80%;
+    right: 2rem;
+}
+
+.profile__box::before {
+    width: 100%;
+    height: 20px;
+    content: "";
+    background: transparent;
+    position: absolute;
+    bottom: 100%;
+       /*esse pseudoelemento serve apenas para fazer uma linha acima da profile box, para que possa haver um espaçamento dentre o profile__item e profile__box. Já que o profile box é aberta e fechada a partir do mouseover e mouseout, respectivamente, é preciso fazer uma linha imaginária entre a profile__item e profile__box, para que esta não seja fechada caso o mouse fique um pouco acima dele. Isso acontece por causa dessa linha invisível.*/
+}
+
+.profile__box::after {
+    width: 1px;
+    height: 1px;
+    content: "";
+    transform: scale(1.01);
+    border-bottom: 0.6rem solid white;
+    border-left: 0.4rem solid transparent;
+    border-right: 0.4rem solid transparent;
+    bottom: 100%;
+    right: 30px;
+    position: absolute;
+}
+
+.profile__list {
+    list-style-type: none;
+    padding: 1rem 0 0.5rem 1rem;
+}
+
+.profile__item {
+    display: flex;
+    margin: 0.5rem 0;
+    cursor: pointer;
+}
+
+.profile__item i {
+    margin-right: 0.5rem;
+}
+
+.profile__logout-box {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #EDF1F5;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    cursor: pointer;
+}
+
+.profile__logout-box i {
+    margin-right: 0.5rem;
+}
+
+.profile__logout-box a{
+    text-decoration: none;
+    color: #647380
+}
+
+.profile__box-display-flex {
+    display: flex;
+      /*esse estilo é colocada na profile__box pelo js. É removida quando o mouse sair da profile__item ou da profile__box.*/
+}

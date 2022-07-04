@@ -1,4 +1,5 @@
 ##Esse arquivo faz as requisições do usuário, requisitadas no front-end
+from flask_login import login_required, current_user
 import requests 
 from app.api.v1 import api_v1
 from flask import redirect, render_template, request, url_for, json
@@ -23,15 +24,19 @@ def main():
 
         case ('POST'):
            return redirect(url_for("api_v1.post_apidata", url=url, name=name, cpf=cpf, email=email, password=password))
+           #return render_template('api_manager.html', error=f'Você fez o número máximo de requisições por agora. Falta {tempo_restante} para que você possa fazê-las novamente')
 
         case ('PUT'):
            userToBeAltered = request.args.get('selected-user')
            return redirect(url_for("api_v1.put_apidata", url=url, name=name, cpf=cpf, email=email, password=password, userToBeAltered=userToBeAltered))
+           #return render_template('api_manager.html', error=f'Você fez o número máximo de requisições por agora. Falta {tempo_restante} para que você possa fazê-las novamente')
+
 
         case ('DELETE'):
            userToBeDeleted = request.args.get('selected-user')
            return redirect(url_for("api_v1.delete_apidata", url=url, name=name, cpf=cpf, email=email, password=password, userToBeDeleted=userToBeDeleted))
-    
+           #return render_template('api_manager.html', error=f'Você fez o número máximo de requisições por agora. Falta {tempo_restante} para que você possa fazê-las novamente')
+
 
 @api_v1.route("/get_apidata")
 def get_apidata():
@@ -55,6 +60,7 @@ def get_apidata():
 
 
 @api_v1.route("/post_apidata", methods=["GET", "POST"])
+@login_required
 def post_apidata():
     data = dataToDict( 
         name = request.args.get('name'),
@@ -71,9 +77,11 @@ def post_apidata():
           #dumps serializa um dicionário p/ json.
         return redirect(url_for("api_v1.get_apidata", request_detail="request_response -> success"))
 
+
     return redirect(url_for("api_v1.get_apidata", request_detail="request_response -> error"))
 
 @api_v1.route("/put_apidata")
+@login_required
 def put_apidata():
     userToBeAltered = request.args.get('userToBeAltered')
     print(f"userTobeAltered => {userToBeAltered}")
@@ -96,6 +104,7 @@ def put_apidata():
     
 
 @api_v1.route("/delete_apidata")
+@login_required
 def delete_apidata():
     userToBeDeleted = request.args.get('userToBeDeleted')
     user = User.query.filter_by(email=userToBeDeleted).first()
@@ -105,6 +114,11 @@ def delete_apidata():
         db.session.commit()
 
         return redirect(url_for("api_v1.get_apidata", request_detail = "request_response -> success"))
+
+    print(current_user.is_authenticated)
+    if not current_user.is_authenticated: 
+       return redirect(url_for("api_v1.get_apidata", request_detail = "request_response -> É preciso estar logado para fazer DELETE"))
+       
 
     return redirect(url_for("api_v1.get_apidata", request_detail = "request_response -> error"))
 

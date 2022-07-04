@@ -38,3 +38,8 @@ def login():
             return redirect(url_for("main.api_manager"))
 
     return render_template("auth.html", auth_mode="sign_in")
+
+@auth.route('/logout')
+def logout ():
+    logout_user()
+    return redirect(url_for("auth.login"))

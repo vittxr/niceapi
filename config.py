@@ -37,7 +37,7 @@ class ProductionConfig(Config):
       app.wsgi_app = ProxyFix(app.wsgi_app)
 
 class HerokuConfig(ProductionConfig):
-      SSK_REDIRECT = True if os.getenv("DYNO") else False
+      SSL_REDIRECT = True if os.getenv("DYNO") else False
 
 config = {
     'development': DevelopmentConfig,
