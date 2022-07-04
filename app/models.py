@@ -13,6 +13,7 @@ class User(db.Model, UserMixin):
     cpf = db.Column(db.String(11), unique=True, nullable=False)
     email = db.Column(db.String(64), unique=True, nullable=False)
     password = db.Column(db.String(128), nullable=False)
+    requests = db.Column(db.Integer, nullable=False, default=0)
         #db.session.remove() remove o que tem dentro da session. Isso é útil. Se der erro em subir um usuário, por faltar algum dado, ele ainda fica na session, por isso é preciso removê-lo e colocá-lo novamente (pelo menos no caso do postgresql)
 
     """  @property
