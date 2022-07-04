@@ -7,7 +7,7 @@
     flex-direction: column;
     background: url(../../img/login-banner.webp);
     background-size: cover;
-    background-position: right 10%;
+    background-position: right 40%;
 }
 
 .register__form {
