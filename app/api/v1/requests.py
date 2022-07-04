@@ -145,19 +145,19 @@ def getUrl(url):
         #os replaces usados são para remover espaços em branco e quebras de linha, deixando a url em um formato adequado.
     return full_url
 
-timerToResetRequests = time.sleep(86400)
+#timerToResetRequests = time.sleep(86400)
 def userCanMakeRequest():
     #essa função verifica se o usuário pode fazer requisições ainda. Além disso, ela aumenta o valor do número de requisições no banco de dados.
     if current_user.is_authenticated: 
        user = User.query.filter_by(email=current_user.email)
        if user.requests >= 10:
-           if timerToResetRequests >= 86400:
+            """ if timerToResetRequests >= 86400:
               user.requests = 0
               db.session.add(user)
               db.session.commit()
-              return True 
+              return True  """
 
-           return redirect(url_for("api_v1.get_apidata", request_detail = f"request_response -> Número máximo de requisições atingido. Para fazê-las novamente, é preciso esperar 1 dia. Tempo restante para resetar as requisições: {timerToResetRequests/3600}"))
+            return redirect(url_for("api_v1.get_apidata", request_detail = f"request_response -> Número máximo de requisições atingido. Para fazê-las novamente, é preciso esperar 1 dia. Tempo restante para resetar as requisições:"))
 
        user.requests = user.requests + 1
        db.session.add(user)
