@@ -24,7 +24,7 @@ def main():
            return redirect(url_for("api_v1.get_apidata", url=url))
 
         case ('POST'):
-           userCanMakeRequest()
+           #userCanMakeRequest()
            return redirect(url_for("api_v1.post_apidata", url=url, name=name, cpf=cpf, email=email, password=password))
            #return render_template('api_manager.html', error=f'Você fez o número máximo de requisições por agora. Falta {tempo_restante} para que você possa fazê-las novamente')
 
