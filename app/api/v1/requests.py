@@ -7,6 +7,7 @@ from flask import redirect, render_template, request, url_for, json
 from bs4 import BeautifulSoup #pip install beautifulsoap4
 from app.models import User
 from app import db
+from datetime import datetime
 
 @api_v1.route("/main", methods=["GET", "POST"])
 def main(): 
@@ -156,8 +157,8 @@ def userCanMakeRequest():
     if current_user.is_authenticated: 
        #user = User.query.filter_by(email=current_user.email).first()
        if current_user.requests_number == 10:
-            timerToResuetRequestNumber = ResetRequestsNumberAfterOneDay()
-            error = f"request_response -> Número máximo de requisições atingido. Para fazê-las novamente, é preciso esperar 1 dia. Tempo restante para resetar as requisições {timerToResuetRequestNumber.interval}"
+            hourTimerWillEnd = ResetRequestsNumberAfterOneDay()
+            error = f"request_response -> Número máximo de requisições atingido. Para fazê-las novamente, é preciso esperar 1 dia. Você poderá fazer mais requisições a manhã, a partir das {hourTimerWillEnd.time()}"
             return error
 
        current_user.requests_number = current_user.requests_number + 1
@@ -171,9 +172,12 @@ def userCanMakeRequest():
 
 def ResetRequestsNumberAfterOneDay(): 
     usr = User.query.filter_by(email = current_user.email).first() 
-    t = Timer(86200.0, resetRequestsNumberInDb(usr))
-    t.start()
-    return t
+    hourTimerWillEnd = datetime.now()
+
+    t = Timer(86200.0, resetRequestsNumberInDb, (usr))
+    t.start() 
+
+    return hourTimerWillEnd
 
 def resetRequestsNumberInDb(usr): 
     usr.requests_number = 0
