@@ -24,9 +24,9 @@ def main():
            return redirect(url_for("api_v1.get_apidata", url=url))
 
         case ('POST'):
-           #userCanMakeRequest()
-           return redirect(url_for("api_v1.post_apidata", url=url, name=name, cpf=cpf, email=email, password=password))
-           #return render_template('api_manager.html', error=f'Você fez o número máximo de requisições por agora. Falta {tempo_restante} para que você possa fazê-las novamente')
+           cond = userCanMakeRequest()
+           if cond:
+               return redirect(url_for("api_v1.post_apidata", url=url, name=name, cpf=cpf, email=email, password=password))
 
         case ('PUT'):
            userToBeAltered = request.args.get('selected-user')
@@ -35,9 +35,10 @@ def main():
 
 
         case ('DELETE'):
-           userToBeDeleted = request.args.get('selected-user')
-           return redirect(url_for("api_v1.delete_apidata", url=url, name=name, cpf=cpf, email=email, password=password, userToBeDeleted=userToBeDeleted))
-           #return render_template('api_manager.html', error=f'Você fez o número máximo de requisições por agora. Falta {tempo_restante} para que você possa fazê-las novamente')
+           cond = userCanMakeRequest()
+           if cond:
+               userToBeDeleted = request.args.get('selected-user')
+               return redirect(url_for("api_v1.delete_apidata", url=url, name=name, cpf=cpf, email=email, password=password, userToBeDeleted=userToBeDeleted))
 
 
 @api_v1.route("/get_apidata")
@@ -146,16 +147,16 @@ def getUrl(url):
     return full_url
 
 #timerToResetRequests = time.sleep(86400)
-""" def userCanMakeRequest():
+def userCanMakeRequest():
     #essa função verifica se o usuário pode fazer requisições ainda. Além disso, ela aumenta o valor do número de requisições no banco de dados.
     if current_user.is_authenticated: 
        user = User.query.filter_by(email=current_user.email)
        if user.requests >= 10:
-            if timerToResetRequests >= 86400:
+            """ if timerToResetRequests >= 86400:
               user.requests = 0
               db.session.add(user)
               db.session.commit()
-              return True 
+              return True  """
 
             return redirect(url_for("api_v1.get_apidata", request_detail = f"request_response -> Número máximo de requisições atingido. Para fazê-las novamente, é preciso esperar 1 dia. Tempo restante para resetar as requisições:"))
 
@@ -165,4 +166,4 @@ def getUrl(url):
        return True 
          #Se o retorno da função for true, o usuário pode fazer a requisição 
 
-    return redirect(url_for("api_v1.get_apidata", request_detail = "request_response -> é preciso estar logado para fazer esse tipo de requisição :/")) """
+    return redirect(url_for("api_v1.get_apidata", request_detail = "request_response -> é preciso estar logado para fazer esse tipo de requisição :/"))
