@@ -66,9 +66,7 @@
             {% endfor %}
          {% else %}
             <!--esse else exibe o request_detail-->  
-            <pre>
-               {{ res_json }} 
-            </pre>
+            <p> {{ res_json }}</p>
          {% endif %}
       </div>
       <a href="{{ url_for('api_v1.usuarios') }}" class="view-raw__link" target="blank">View Raw</a>

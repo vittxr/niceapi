@@ -1,3 +1,4 @@
+import datetime
 from flask_login import UserMixin
 from app import db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -15,6 +16,7 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(128), nullable=False)
     requests_number = db.Column(db.Integer, nullable=False, default=1) 
         #db.session.remove() remove o que tem dentro da session. Isso é útil. Se der erro em subir um usuário, por faltar algum dado, ele ainda fica na session, por isso é preciso removê-lo e colocá-lo novamente (pelo menos no caso do postgresql)
+
 
     """  @property
     def password(self):

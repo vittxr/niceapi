@@ -1,4 +1,5 @@
 ##Esse arquivo faz as requisições do usuário, requisitadas no front-end
+from threading import Timer
 from flask_login import login_required, current_user
 import requests 
 from app.api.v1 import api_v1
@@ -6,7 +7,6 @@ from flask import redirect, render_template, request, url_for, json
 from bs4 import BeautifulSoup #pip install beautifulsoap4
 from app.models import User
 from app import db
-import time
 
 @api_v1.route("/main", methods=["GET", "POST"])
 def main(): 
@@ -44,8 +44,6 @@ def main():
                return redirect(url_for("api_v1.delete_apidata", url=url, name=name, cpf=cpf, email=email, password=password, userToBeDeleted=userToBeDeleted))
            return redirect(url_for("api_v1.get_apidata", request_detail = f'{usrCanMakeRequest}'))
            
-
-
 @api_v1.route("/get_apidata")
 def get_apidata():
     global res 
@@ -61,7 +59,8 @@ def get_apidata():
         res_json = "an error occurred :/"
 
     if request.args.get('request_detail'): 
-        res_json = json.dumps(request.args.get('request_detail'))
+        #res_json = json.dumps(request.args.get('request_detail'))
+        res_json = request.args.get('request_detail')
            #detalhe da requisição POST, PUT e delete. Exibe uma mensagem falando se ela foi um sucesso ou não
 
     return render_template('api_manager.html', res_json=res_json)
@@ -157,6 +156,7 @@ def userCanMakeRequest():
     if current_user.is_authenticated: 
        #user = User.query.filter_by(email=current_user.email).first()
        if current_user.requests_number == 10:
+            ResetRequestsNumberAfterOneDay()
             error = f"request_response -> Número máximo de requisições atingido. Para fazê-las novamente, é preciso esperar 1 dia. Tempo restante para resetar as requisições"
             return error
 
@@ -168,3 +168,12 @@ def userCanMakeRequest():
 
     error = "request_response -> é preciso estar logado para fazer esse tipo de requisição :/"
     return error
+
+def ResetRequestsNumberAfterOneDay(): 
+    usr = User.query.filter_by(email = current_user.email).first() 
+    t = Timer(7200, resetRequestsNumberInDb(usr))
+
+def resetRequestsNumberInDb(usr): 
+    usr.requests_number = 0
+    db.session.add(usr)
+    db.session.commit()
