@@ -24,21 +24,26 @@ def main():
            return redirect(url_for("api_v1.get_apidata", url=url))
 
         case ('POST'):
-           cond = userCanMakeRequest()
-           if cond:
+           usrCanMakeRequest = userCanMakeRequest()
+           if usrCanMakeRequest:
                return redirect(url_for("api_v1.post_apidata", url=url, name=name, cpf=cpf, email=email, password=password))
+           return redirect(url_for("api_v1.get_apidata", request_detail = f'{usrCanMakeRequest}'))
 
         case ('PUT'):
-           userToBeAltered = request.args.get('selected-user')
-           return redirect(url_for("api_v1.put_apidata", url=url, name=name, cpf=cpf, email=email, password=password, userToBeAltered=userToBeAltered))
-           #return render_template('api_manager.html', error=f'Você fez o número máximo de requisições por agora. Falta {tempo_restante} para que você possa fazê-las novamente')
+           usrCanMakeRequest = userCanMakeRequest()
+           if usrCanMakeRequest:
+               userToBeAltered = request.args.get('selected-user')
+               return redirect(url_for("api_v1.put_apidata", url=url, name=name, cpf=cpf, email=email, password=password, userToBeAltered=userToBeAltered))
+           return redirect(url_for("api_v1.get_apidata", request_detail = f'{usrCanMakeRequest}'))
 
 
         case ('DELETE'):
-           cond = userCanMakeRequest()
-           if cond:
+           usrCanMakeRequest = userCanMakeRequest()
+           if usrCanMakeRequest == True:
                userToBeDeleted = request.args.get('selected-user')
                return redirect(url_for("api_v1.delete_apidata", url=url, name=name, cpf=cpf, email=email, password=password, userToBeDeleted=userToBeDeleted))
+           return redirect(url_for("api_v1.get_apidata", request_detail = f'{usrCanMakeRequest}'))
+           
 
 
 @api_v1.route("/get_apidata")
@@ -146,13 +151,14 @@ def getUrl(url):
         #os replaces usados são para remover espaços em branco e quebras de linha, deixando a url em um formato adequado.
     return full_url
 
-#timerToResetRequests = time.sleep(86400)
 def userCanMakeRequest():
+    error=""
     #essa função verifica se o usuário pode fazer requisições ainda. Além disso, ela aumenta o valor do número de requisições no banco de dados.
     if current_user.is_authenticated: 
        #user = User.query.filter_by(email=current_user.email).first()
        if current_user.requests_number == 10:
-            return redirect(url_for("api_v1.get_apidata", request_detail = f"request_response -> Número máximo de requisições atingido. Para fazê-las novamente, é preciso esperar 1 dia. Tempo restante para resetar as requisições:"))
+            error = f"request_response -> Número máximo de requisições atingido. Para fazê-las novamente, é preciso esperar 1 dia. Tempo restante para resetar as requisições"
+            return error
 
        current_user.requests_number = current_user.requests_number + 1
        db.session.add(current_user)
@@ -160,4 +166,5 @@ def userCanMakeRequest():
        return True 
          #Se o retorno da função for true, o usuário pode fazer a requisição 
 
-    return redirect(url_for("api_v1.get_apidata", request_detail = "request_response -> é preciso estar logado para fazer esse tipo de requisição :/"))
+    error = "request_response -> é preciso estar logado para fazer esse tipo de requisição :/"
+    return error
