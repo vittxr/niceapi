@@ -112,7 +112,7 @@ def delete_apidata():
     userToBeDeleted = request.args.get('userToBeDeleted')
 
     user = User.query.filter_by(email=userToBeDeleted).first()
-    
+
     if user:
         db.session.delete(user)
         db.session.commit()
@@ -150,18 +150,12 @@ def getUrl(url):
 def userCanMakeRequest():
     #essa função verifica se o usuário pode fazer requisições ainda. Além disso, ela aumenta o valor do número de requisições no banco de dados.
     if current_user.is_authenticated: 
-       user = User.query.filter_by(email=current_user.email).first()
-       if user.requests_number >= 10:
-            """ if timerToResetRequests >= 86400:
-              user.requests = 0
-              db.session.add(user)
-              db.session.commit()
-              return True  """
-
+       #user = User.query.filter_by(email=current_user.email).first()
+       if current_user.requests_number == 10:
             return redirect(url_for("api_v1.get_apidata", request_detail = f"request_response -> Número máximo de requisições atingido. Para fazê-las novamente, é preciso esperar 1 dia. Tempo restante para resetar as requisições:"))
 
-       user.requests_number = user.requests_number + 1
-       db.session.add(user)
+       current_user.requests_number = current_user.requests_number + 1
+       db.session.add(current_user)
        db.session.commit()
        return True 
          #Se o retorno da função for true, o usuário pode fazer a requisição 
