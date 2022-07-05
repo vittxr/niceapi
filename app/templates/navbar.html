@@ -13,7 +13,7 @@
         {% endif %}
     </ul>
 
-
+    {% if current_user.is_authenticated %}
     <div class="profile__box">
         <ul class="profile__list">
            <li class="profile__item">
@@ -36,4 +36,5 @@
            <a href="{{ url_for('auth.logout') }}"><p>Log out</p></a>
         </div>
      </div>
+     {% endif %}
 </nav>
