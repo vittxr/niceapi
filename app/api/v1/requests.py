@@ -157,7 +157,7 @@ def userCanMakeRequest():
        #user = User.query.filter_by(email=current_user.email).first()
        if current_user.requests_number == 10:
             timerToResuetRequestNumber = ResetRequestsNumberAfterOneDay()
-            error = f"request_response -> Número máximo de requisições atingido. Para fazê-las novamente, é preciso esperar 1 dia. Tempo restante para resetar as requisições {timerToResuetRequestNumber}"
+            error = f"request_response -> Número máximo de requisições atingido. Para fazê-las novamente, é preciso esperar 1 dia. Tempo restante para resetar as requisições {timerToResuetRequestNumber.interval}"
             return error
 
        current_user.requests_number = current_user.requests_number + 1
@@ -171,7 +171,7 @@ def userCanMakeRequest():
 
 def ResetRequestsNumberAfterOneDay(): 
     usr = User.query.filter_by(email = current_user.email).first() 
-    t = Timer(7200, resetRequestsNumberInDb(usr))
+    t = Timer(86200.0, resetRequestsNumberInDb(usr))
     t.start()
     return t
 
