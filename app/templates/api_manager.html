@@ -8,22 +8,6 @@
 <link rel="stylesheet" href="{{ url_for ('static', filename='css/api_manager/view-raw_link.css') }}">
 <link rel="stylesheet" href="{{ url_for ('static', filename='css/guide/guide.css') }}">
 <link rel="stylesheet" href="{{ url_for ('static', filename='css/guide/api_info.css') }}">
-  <!-- <section class="top__section">
-      <div class="api__info-helper">
-         <h2 class="info-helper__title">Try it now! </h2>
-         <p class=info-helper__description>Para fazer requisições, use a caixa de busca abaixo. Nela, você poderá fazer os quatros tipos de requisições: GET, POST, PUT e DELETE. </p>
-         
-         <div class="info-helper__hints">
-            <p>Rotas para fazer as requisições:</p>
-            <ul>
-                  <li>&nbspGet: usuarios</li>
-                  <li>&nbspPost: create_user</li>
-                  <li>&nbspPut e Delete: não precisa de rota, basta preencher os campos (no caso do put) e selecionar o usuário (é preciso fazer um get antes de tentar fazer put ou delete, para se obter os dados) </li>
-            </ul>
-         </div>
-      </div>
-  </section> -->
-
   <section class="introduction__section">
      <div class="introduction__content">
          <h1 class="introduction__title">NiceeApi</h1>
@@ -69,7 +53,7 @@
   {% if res_json: %}
        <!--Resultado da requisição: -->
       <div class="res__box">
-         {% if res_json[0]['cpf'] %}
+         {% if res_json[0]['email'] %}
             <!--Essa comparação serve para verificar se o res_json contém dados de usuários (ele pode conter dado de requisição também)-->
             {% for user in res_json %}
                <pre>
