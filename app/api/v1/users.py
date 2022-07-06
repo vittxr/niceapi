@@ -16,7 +16,7 @@ def usuarios():
 @api_v1.route("/create_user", methods=["GET", "POST"])
 def create_user():
     user_infoPosted = request.get_json("res")
-    user = User(name=user_infoPosted['name'], cpf=user_infoPosted['cpf'], email=user_infoPosted['email'], password=user_infoPosted['password'])
+    user = User(name=user_infoPosted['name'], email=user_infoPosted['email'], password=user_infoPosted['password'])
     db.session.add(user)
     db.session.commit()
     return redirect(url_for('api_v1.get_apidata'))

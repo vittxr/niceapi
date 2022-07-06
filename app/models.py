@@ -11,7 +11,6 @@ class User(db.Model, UserMixin):
     __tablename__ = "tb_users"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), nullable=False)
-    cpf = db.Column(db.String(11), unique=True, nullable=False)
     email = db.Column(db.String(64), unique=True, nullable=False)
     password = db.Column(db.String(128), nullable=False)
     requests_number = db.Column(db.Integer, nullable=False, default=1) 

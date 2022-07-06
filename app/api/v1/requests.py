@@ -14,7 +14,6 @@ def main():
     ##Essa rota/função serve para obter o tipo de requisição que o usuário fez, escolhida no front-end. A partir daqui, redireciona para as rotas individuais de cada requisição (GET, POST, PUT ou DELETE)
     url = request.args.get('url')
     name = request.args.get('name')
-    cpf = request.args.get('cpf')
     password = request.args.get("password")
     email = request.args.get('email')
        #url é o que o usuário colocou no input. Ou seja, é o path para onde ele quer ir na api (a única opção é "usuarios" lol, mas poderia ter outras)
@@ -27,14 +26,14 @@ def main():
         case ('POST'):
            usrCanMakeRequest = userCanMakeRequest()
            if usrCanMakeRequest == True:
-               return redirect(url_for("api_v1.post_apidata", url=url, name=name, cpf=cpf, email=email, password=password))
+               return redirect(url_for("api_v1.post_apidata", url=url, name=name, email=email, password=password))
            return redirect(url_for("api_v1.get_apidata", request_detail = f'{usrCanMakeRequest}'))
 
         case ('PUT'):
            usrCanMakeRequest = userCanMakeRequest()
            if usrCanMakeRequest == True:
                userToBeAltered = request.args.get('selected-user')
-               return redirect(url_for("api_v1.put_apidata", url=url, name=name, cpf=cpf, email=email, password=password, userToBeAltered=userToBeAltered))
+               return redirect(url_for("api_v1.put_apidata", url=url, name=name, email=email, password=password, userToBeAltered=userToBeAltered))
            return redirect(url_for("api_v1.get_apidata", request_detail = f'{usrCanMakeRequest}'))
 
 
@@ -42,7 +41,7 @@ def main():
            usrCanMakeRequest = userCanMakeRequest()
            if usrCanMakeRequest == True:
                userToBeDeleted = request.args.get('selected-user')
-               return redirect(url_for("api_v1.delete_apidata", url=url, name=name, cpf=cpf, email=email, password=password, userToBeDeleted=userToBeDeleted))
+               return redirect(url_for("api_v1.delete_apidata", url=url, name=name, email=email, password=password, userToBeDeleted=userToBeDeleted))
            return redirect(url_for("api_v1.get_apidata", request_detail = f'{usrCanMakeRequest}'))
            
 @api_v1.route("/get_apidata")
@@ -72,7 +71,6 @@ def get_apidata():
 def post_apidata():
     data = dataToDict( 
         name = request.args.get('name'),
-        cpf = request.args.get('cpf'),
         email = request.args.get('email'),
         password = request.args.get('password'),
         ) 
@@ -99,7 +97,6 @@ def put_apidata():
     
     if user:
         user.name = request.args.get("name")
-        user.cpf = request.args.get("cpf")
         user.email = request.args.get("email")
         user.password = request.args.get("password")
 
