@@ -32,7 +32,6 @@ class User(db.Model, UserMixin):
         return {
             "id":self.id, 
             "name":self.name,
-            "cpf":self.cpf,
             "email":self.email,
         }        
     

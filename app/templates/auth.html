@@ -17,19 +17,19 @@
             {%if auth_mode == "sign_up" %}
             <div class="register__ipt-box">
                 <label for="name" class="register__label">Full Name</label>
-                <input type="text" name="name" id="name" class="register__ipt" placeholder="Name...">
+                <input type="text" name="name" id="name" class="register__ipt" placeholder="Name..." required>
             </div>
             {% endif %}
 
             <div class="register__ipt-box">
                 <label for="email" class="register__label">Email</label>
-                <input type="email" name="email" id="email" class="register__ipt" placeholder="Email adress...">
+                <input type="email" name="email" id="email" class="register__ipt" placeholder="Email adress..." required>
             </div>
 
             <div class="register__ipt-box">
                 <label for="password" class="register__label">Password</label>
                 <input type="password" name="password" id="password" class="register__ipt"
-                placeholder="Password...">
+                placeholder="Password..." required>
             </div>
             
             <div class="register__sign-buttons">
