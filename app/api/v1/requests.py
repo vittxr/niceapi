@@ -26,13 +26,13 @@ def main():
 
         case ('POST'):
            usrCanMakeRequest = userCanMakeRequest()
-           if usrCanMakeRequest:
+           if usrCanMakeRequest == True:
                return redirect(url_for("api_v1.post_apidata", url=url, name=name, cpf=cpf, email=email, password=password))
            return redirect(url_for("api_v1.get_apidata", request_detail = f'{usrCanMakeRequest}'))
 
         case ('PUT'):
            usrCanMakeRequest = userCanMakeRequest()
-           if usrCanMakeRequest:
+           if usrCanMakeRequest == True:
                userToBeAltered = request.args.get('selected-user')
                return redirect(url_for("api_v1.put_apidata", url=url, name=name, cpf=cpf, email=email, password=password, userToBeAltered=userToBeAltered))
            return redirect(url_for("api_v1.get_apidata", request_detail = f'{usrCanMakeRequest}'))
