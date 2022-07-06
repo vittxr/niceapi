@@ -5,6 +5,14 @@
     box-sizing: border-box;
 }
 
+:root {
+    --orange: #BF7A24;
+    --light-orange: #F29B30;
+    --beige: #F2C48D;
+    --black: #0D0D0D;
+    --light-gray: #e3e3e3;
+}
+
 body { 
-    background: #dddddf; 
+    background: #F2F2F2; 
 }

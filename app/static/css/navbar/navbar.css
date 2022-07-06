@@ -1,13 +1,15 @@
 .navbar {
     width: 100%;
-    background: #403C39;
+    background: transparent;
     padding: 2rem 1rem;
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 5;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    transition: background 0.5s ease;
 }
 
 .navbar__list {

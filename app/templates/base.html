@@ -12,6 +12,7 @@
 <body>
     {% include 'navbar.html' %}
     {% block content %} {% endblock %}
+    <script src=" {{ url_for('static', filename='js/navbar/navbar-scroll-effect.js') }}"></script>
     <script src=" {{ url_for('static', filename='js/navbar/open-profile.js') }}"></script>
 </body>
 </html>

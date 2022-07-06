@@ -1,0 +1,42 @@
+.introduction__section {
+    width: 100%;
+    height: 80vh;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.2) 100%, transparent), url(../../img/banner.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: left 10% top 0;
+    margin: 0 0;
+    color: white;
+    position: relative;
+    z-index: 1;
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+}
+
+.introduction__content {
+    position: absolute;
+    bottom: 20%;
+    left: 5%; 
+}
+
+.introduction__title {
+    font-size: 4rem;
+    padding: 1rem 0;
+}
+
+.introduction__btn {
+    font-size: 1.25rem;
+    font-weight: 700;
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    background: var(--beige);
+    color: white;
+    border: 1px solid var(--beige);;
+}
+
+.introduction__btn:hover {
+    background: white;
+    color: var(--beige);
+}

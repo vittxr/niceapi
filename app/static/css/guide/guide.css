@@ -1,0 +1,27 @@
+.guide__section {
+    display: none;
+    width: 90vw;
+    height:80vw;
+    background: white;
+    position: absolute;
+    z-index: 10;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.guide__close-btn {
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid transparent;
+}
+
+.guide__close-btn:hover {
+    border-color: var(--black);
+}
+

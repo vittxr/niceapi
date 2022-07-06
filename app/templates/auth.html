@@ -5,6 +5,8 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/auth/auth.css') }}">
 
     <div class="register__box">
+        <div class="register__banner"></div>
+
         {%if auth_mode == "sign_up" %}
         <form class="register__form" action="{{ url_for('auth.create_account') }}" method="post">
             <h1 class="register__title">Sign Up</h1>

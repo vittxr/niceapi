@@ -3,8 +3,8 @@
     width: 10%;
     text-decoration: none; 
     color: white;
-    background: #F299CA;
-    border: 1px solid #F299CA;
+    background: #BF7A24;
+    border: 1px solid #BF7A24;
     border-radius: 2px;
     padding: 0.5rem 1rem;
     margin: 1rem auto;
@@ -13,5 +13,5 @@
 
 .view-raw__link:hover {
     background: white;
-    color: #F299CA;
+    color: #BF7A24;
 }

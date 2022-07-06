@@ -2,12 +2,13 @@
 
 {% block content %}  
 <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">   
-<link rel="stylesheet" href="{{ url_for('static', filename='css/api_manager/top_section.css') }}">   
-<link rel="stylesheet" href="{{ url_for ('static', filename='css/api_manager/api_info.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/api_manager/introduction_section.css') }}">   
 <link rel="stylesheet" href="{{ url_for ('static', filename='css/api_manager/manager-api_box.css') }}">
 <link rel="stylesheet" href="{{ url_for ('static', filename='css/api_manager/res_box.css') }}">
 <link rel="stylesheet" href="{{ url_for ('static', filename='css/api_manager/view-raw_link.css') }}">
-  <section class="top__section">
+<link rel="stylesheet" href="{{ url_for ('static', filename='css/guide/guide.css') }}">
+<link rel="stylesheet" href="{{ url_for ('static', filename='css/guide/api_info.css') }}">
+  <!-- <section class="top__section">
       <div class="api__info-helper">
          <h2 class="info-helper__title">Try it now! </h2>
          <p class=info-helper__description>Para fazer requisições, use a caixa de busca abaixo. Nela, você poderá fazer os quatros tipos de requisições: GET, POST, PUT e DELETE. </p>
@@ -21,6 +22,18 @@
             </ul>
          </div>
       </div>
+  </section> -->
+
+  <section class="introduction__section">
+     <div class="introduction__content">
+         <h1 class="introduction__title">NiceeApi</h1>
+         <button class="introduction__btn itd__btn-explore">Explore</button>
+         <button class="introduction__btn itd__btn-guide">Guide</button>
+     </div>
+  </section>
+
+  <section class="guide__section">
+     {% include 'guide.html' %}
   </section>
 
   <div class="manager-api__box">
@@ -73,4 +86,5 @@
   {% endif %}
 
   <script src="{{ url_for('static', filename='js/api_manager/type-request.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/guide/ToggleGuideDisplay.js') }}"></script>
 {% endblock %}
