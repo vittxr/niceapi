@@ -128,10 +128,9 @@ def delete_apidata():
     return redirect(url_for("api_v1.get_apidata", request_detail = "request_response -> error"))
 
 ##funções auxiliares (usados nas rotas:
-def dataToDict(name, cpf, email, password):
+def dataToDict(name, email, password):
     data = {
         "name": f"{name}",
-        "cpf": f"{cpf}", 
         "email": f"{email}", 
         "password": f"{password}"
     }

@@ -20,10 +20,9 @@ def create_account():
     if request.form: 
         name = request.form.get("name")
         email = request.form.get("email")
-        cpf = request.form.get("cpf")
         password = request.form.get("password")
 
-    new_user = User(name=name, email=email, cpf=cpf, password=password)
+    new_user = User(name=name, email=email, password=password)
     db.session.add(new_user)
     db.session.commit()
     return render_template("auth.html", auth_mode="sign_in")
