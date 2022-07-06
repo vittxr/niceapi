@@ -3,9 +3,6 @@ from flask import jsonify, redirect, render_template, request, abort, url_for
 from app.models import User 
 from app import db
 
-def requisitos():
-    pass  
-
 @api_v1.route("/usuarios", methods=["GET"])
 def usuarios():
     users = User.query.all()
