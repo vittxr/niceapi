@@ -1,9 +1,10 @@
 .guide__section {
     display: none;
+    flex-direction: column;
     width: 90vw;
     height:80vw;
     background: white;
-    position: absolute;
+    position: fixed;
     z-index: 10;
     left: 50%;
     top: 50%;

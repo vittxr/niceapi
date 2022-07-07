@@ -72,7 +72,6 @@ def post_apidata():
         email = request.args.get('email'),
         password = request.args.get('password'),
         ) 
-
     url = request.args.get('url')
     full_url = getUrl(url)
 
@@ -80,7 +79,6 @@ def post_apidata():
         res = requests.post(full_url, data=json.dumps(data))
           #dumps serializa um dicionário p/ json.
         return redirect(url_for("api_v1.get_apidata", request_detail="request_response -> success"))
-
 
     return redirect(url_for("api_v1.get_apidata", request_detail="request_response -> error"))
 

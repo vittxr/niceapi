@@ -13,3 +13,42 @@
         </ul>
     </div>
 </div>
+
+<div class="guide__instructions-box">
+    <h1>Python</h1>
+    <div class="instructions__code-boxes">
+        <div class="instructions__code-box">
+            <pre class="intructions__code get-request">
+from json import dumps
+import requests 
+
+url = f"https://niceeapi.herokuapp.com/api/v1/"
+
+def get_data(): 
+    return requests.get(url+"/usuarios").json()
+
+print(get_data()) 
+            </pre>
+
+            <pre class="intructions__code post-request">
+url = f"https://niceeapi.herokuapp.com/api/v1/"
+def post_data():
+    data = {
+        "name":"test",
+        "email":"test@gmail.com",
+        "password":"test123",
+    }
+    res = requests.post(url+"/create_user", data=dumps(data))
+    print(res)
+    return res
+
+post = post_data()
+print(post) # Response [200]
+            </pre>
+            <div class="instructions__button-box">
+                <button class="instructions__button">GET</button>
+                <button class="instructions__button">POST</button>
+            </div>
+        </div>
+    </div>
+</div>
