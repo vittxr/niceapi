@@ -9,7 +9,7 @@ app = create_app('default')
 migrate = Migrate(app, db)
 
 if __name__ == "__main__":
-   app.run(debug=1)
+   app.run(debug=1, use_reloader=False)
 
 
 """ def createTable():
