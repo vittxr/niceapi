@@ -7,13 +7,13 @@ from app import db
 
 @auth.route("/")
 def auth_page():
+    status = request.args.get("status")
     auth_mode = request.args.get('auth_mode')
       #pega-se o args enviado pelo url_for do html. Caso o usuário clicar no link de fazer login (sign in), muda-se o auth_mode. Essa variável será utilizada para uma condicional no jinja, que exibe o formulário de login ou de cadastro (sign-in e sign-up), de acordo com o valor de auth_mode.
     if not auth_mode: 
        auth_mode = "sign_up"
 
-    print(auth_mode)
-    return render_template("auth.html", auth_mode = auth_mode)
+    return render_template("auth.html", auth_mode = auth_mode, status=status)
 
 @auth.route("/create_account", methods=["GET", "POST"])
 def create_account():
@@ -22,10 +22,14 @@ def create_account():
         email = request.form.get("email")
         password = request.form.get("password")
 
-    new_user = User(name=name, email=email, password=password)
-    db.session.add(new_user)
-    db.session.commit()
-    return render_template("auth.html", auth_mode="sign_in")
+        try:
+            new_user = User(name=name, email=email, password=password)
+            db.session.add(new_user)
+            db.session.commit()
+        except: 
+            return redirect(url_for("auth.auth_page", status="error"))
+
+    return redirect(url_for("auth.auth_page", auth_mode="sign_in", status="sucess"))
 
 @auth.route("/login", methods=["GET", "POST"])
 def login():

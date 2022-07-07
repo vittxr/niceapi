@@ -14,5 +14,19 @@
     {% block content %} {% endblock %}
     <script src=" {{ url_for('static', filename='js/navbar/navbar-scroll-effect.js') }}"></script>
     <script src=" {{ url_for('static', filename='js/navbar/open-profile.js') }}"></script>
+
+    {% if status %} 
+       <!--status é a variável que informa ao usuário se seu cadastro foi um sucesso ou não-->
+       <script>
+          //esse alert precisa ser colocado aqui no base.html mesmo, porque as outras páginas são blocos de elementos do jinja2 (ou seja o script ficaria no meio da página, no meio do conteúdo)
+         if ("{{ status }}" == "error") {
+             alert("Email is already registered")
+         } else {
+             alert("Account created! ")
+         }
+       </script>
+
+       <!--Aparentemente não é possível declarar variável no jinja2 depois da tag <script> aaaaaaaaaa :c-->
+    {% endif %}
 </body>
 </html>
