@@ -18,7 +18,7 @@
     <h1>Python</h1>
     <div class="instructions__code-boxes">
         <div class="instructions__code-box">
-            <pre class="intructions__code get-request">
+            <pre class="instructions__code get-request">
 from json import dumps
 import requests 
 
@@ -30,7 +30,7 @@ def get_data():
 print(get_data()) 
             </pre>
 
-            <pre class="intructions__code post-request">
+            <pre class="instructions__code post-request">
 url = f"https://niceeapi.herokuapp.com/api/v1/"
 def post_data():
     data = {
@@ -45,9 +45,18 @@ def post_data():
 post = post_data()
 print(post) # Response [200]
             </pre>
+
+            <pre class="instructions__code put-request">
+               Building...
+            </pre>
+            <pre class="instructions__code delete-request">
+               Building...
+             </pre>
             <div class="instructions__button-box">
-                <button class="instructions__button">GET</button>
+                <button class="instructions__button instructions__button--active">GET</button>
                 <button class="instructions__button">POST</button>
+                <button class="instructions__button">PUT</button>
+                <button class="instructions__button">DELETE</button>
             </div>
         </div>
     </div>

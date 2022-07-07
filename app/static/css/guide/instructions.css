@@ -27,16 +27,18 @@
 
 .instructions__button {
     padding: 0.25rem 0.5rem;
-    background: var(--light-orange); 
-    color: white;
     cursor: pointer;
 }
 
-.instructions__button:hover {
-    background: white; 
-    color: var(--light-orange);
+.instructions__button--active {
+    background: var(--light-orange); 
+    color: white;
 }
 
-.post-request {
+.instructions__button:hover {
+    opacity: 0.9;
+}
+
+.post-request, .put-request, .delete-request {
     display: none;
 }
