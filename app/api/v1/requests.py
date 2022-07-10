@@ -1,13 +1,15 @@
 ##Esse arquivo faz as requisições do usuário, requisitadas no front-end
+import email
 from flask_login import login_required, current_user
 import requests 
 from app.api.v1 import api_v1
-from flask import redirect, render_template, request, url_for, json
+from flask import jsonify, redirect, render_template, request, url_for, json
 from app.models import User
 from app import db
-from ..utils import getUrl, dataToDict, userCanMakeRequest
+from ..utils import getUrl, dataToDict, userCanMakeRequest, doDbAction
 
 @api_v1.route("/main", methods=["GET", "POST"])
+@login_required
 def main(): 
     ##Essa rota/função serve para obter o tipo de requisição que o usuário fez, escolhida no front-end. A partir daqui, redireciona para as rotas individuais de cada requisição (GET, POST, PUT ou DELETE)
     url = request.args.get('url')
@@ -57,7 +59,6 @@ def get_apidata():
         res_json = "an error occurred :/"
 
     if request.args.get('request_detail'): 
-        #res_json = json.dumps(request.args.get('request_detail'))
         res_json = request.args.get('request_detail')
            #detalhe da requisição POST, PUT e delete. Exibe uma mensagem falando se ela foi um sucesso ou não
 
@@ -65,60 +66,74 @@ def get_apidata():
 
 
 @api_v1.route("/post_apidata", methods=["GET", "POST"])
-@login_required
 def post_apidata():
     data = dataToDict( 
         name = request.args.get('name'),
         email = request.args.get('email'),
         password = request.args.get('password'),
         ) 
-    url = request.args.get('url')
-    full_url = getUrl(url)
+    #url = request.args.get('url')
+    #full_url = getUrl(url)
 
-    if data and url:
-        res = requests.post(full_url, data=json.dumps(data))
+    if data:
+        new_user = User(name=data['name'], email=data['email'], password=['password'])
+        doDbAction(new_user, 'site', 'add')
           #dumps serializa um dicionário p/ json.
         return redirect(url_for("api_v1.get_apidata", request_detail="request_response -> success"))
 
     return redirect(url_for("api_v1.get_apidata", request_detail="request_response -> error"))
 
-@api_v1.route("/put_apidata")
-@login_required
+@api_v1.route("/put_apidata", methods=["GET", "PUT"])
 def put_apidata():
-    userToBeAltered = request.args.get('userToBeAltered')
-    print(f"userTobeAltered => {userToBeAltered}")
-
-    user = User.query.filter_by(email=userToBeAltered).first()
-    print(user)
-    
-    if user:
-        user.name = request.args.get("name")
-        user.email = request.args.get("email")
-        user.password = request.args.get("password")
-
-        db.session.add(user)
-        db.session.commit()
-
-        return redirect(url_for("api_v1.get_apidata", request_detail = "request_response -> success"))
-
-    return redirect(url_for("api_v1.get_apidata", request_detail = "request_response -> error"))
-    
-
-@api_v1.route("/delete_apidata")
-@login_required
-def delete_apidata():
-    userToBeDeleted = request.args.get('userToBeDeleted')
-
-    user = User.query.filter_by(email=userToBeDeleted).first()
-
-    if user:
-        db.session.delete(user)
-        db.session.commit()
-
-        return redirect(url_for("api_v1.get_apidata", request_detail = "request_response -> success"))
-
-    if not current_user.is_authenticated: 
-       return redirect(url_for("api_v1.get_apidata", request_detail = "request_response -> É preciso estar logado para fazer DELETE"))
+    global userToBeAltered
+    userToBeAltered = ""
+    data = request.args.get('userToBeAltered')
+    if data: 
+       ##-> Isso caso a requisição seja feita a partir do site: 
+       userToBeAltered = User.query.filter_by(email=data).first()
        
+       userToBeAltered.name = request.args.get("name")
+       userToBeAltered.email = request.args.get("email")
+       userToBeAltered.password = request.args.get("password")
+       
+       if userToBeAltered:
+          return doDbAction(userToBeAltered, "site", "add") 
+                            #user; request_origin; db_session_mode
+       return redirect(url_for("api_v1.get_apidata", request_detail = "request_response -> error"))
 
-    return redirect(url_for("api_v1.get_apidata", request_detail = "request_response -> error"))
+    ##-> Caso seja feito a partir do código ou postman:
+    data = request.get_json("data")
+    user = User.query.filter_by(email=data["myAcessData"]['email']).first() 
+    if user and user.password == data["myAcessData"]["password"]: 
+        #essa condição serve para verificar se o usuário está no banco de dados e se a senha que ele enviou na data está correta.
+        """
+        Caso o usuário faça requisição por fontes externas, ele precisará informar seus dados, por isso verificamos aqui se ele já está logado. No site, a rota "main" que controla tudo e colocamos que, para acessa-lá, é preciso estar logado.
+        """
+        userToBeAltered = User.query.filter_by(email=data['userToBeAltered']['email']).first() 
+       
+        if userToBeAltered:
+            userToBeAltered.name = data['newUser']["name"]
+            userToBeAltered.email = data['newUser']["email"]
+            userToBeAltered.password = data['newUser']["password"]
+        
+            return doDbAction(userToBeAltered, "code", "add")
+        return jsonify({"status": "error", "message": "the user you are trying to alter does'nt exist."})
+    return jsonify({"status": "error", "message": "your data acess is wrong or does'nt exist in database"}) 
+    
+@api_v1.route("/delete_apidata", methods=["GET", "DELETE"])
+def delete_apidata():
+    global userToBeDeleted
+    userToBeDeleted = ""
+    data = request.args.get('userToBeDeleted')
+    if data:
+       ##-> caso a requisição seja feita a partir do site:
+       userToBeDeleted = User.query.filter_by(email=userToBeDeleted).first()
+       return doDbAction(userToBeDeleted, "site", "delete") 
+    ##-> Caso seja feito a partir do código ou postman:
+    data = request.get_json("data")
+    user = User.query.filter_by(email=data["myAcessData"]["email"]).first()
+
+    if user and user.password == data["myAcessData"]["password"]: 
+        #essa condição serve para verificar se o usuário está no banco de dados e se a senha que ele enviou na data está correta.
+        userToBeDeleted = User.query.filter_by(email=data['userToBeDeleted']['email']).first() 
+        return doDbAction(userToBeDeleted, "code", "delete") 

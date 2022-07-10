@@ -1,4 +1,6 @@
 from datetime import datetime
+
+from flask import jsonify, redirect, url_for
 from app import db
 from app.models import User
 from bs4 import BeautifulSoup #pip install beautifulsoap4
@@ -17,7 +19,7 @@ def dataToDict(name, email, password):
 def getUrl(url):
     default_url = """
                         <label for="url" class="search-apiData__ipt-url-predefined" name="default-url">
-                            https://niceeapi.herokuapp.com/api/v1/
+                           https://niceeapi.herokuapp.com/api/v1/
                         </label>"
                   """
     full_url = BeautifulSoup(default_url, features="html.parser").label.string.replace(' ', '').replace('\n', '') + url
@@ -57,3 +59,20 @@ def resetRequestsNumberInDb(usr):
     usr.requests_number = 0
     db.session.add(usr)
     db.session.commit()
+
+def doDbAction(user, request_origin, db_session_mode):
+    #-> Request origin é de o request veio, do código ou do site. Vamos usá-los para retornar diferentes tipos de resposta, caso a alteração no db seja um sucesso.
+    #-> db_session_mode é a ação que o usário quer fazer no db (add ou delete)
+    if db_session_mode == "add":
+        db.session.add(user)
+        db.session.commit()
+    elif db_session_mode == "delete":
+        db.session.delete(user)
+        db.session.commit()
+    
+    if request_origin == "code": 
+       return jsonify({"status": "sucess", "message": "the request was sucessful"})
+         #caso request_origin seja de código, retorna-se um json para o usuário.
+    elif request_origin == "site": 
+       return redirect(url_for("api_v1.get_apidata", request_detail = "request_response -> success"))
+          #caso request_origin seja do site, redireciona o usuário para a página principal da api, com uma resposta de sucesso.
