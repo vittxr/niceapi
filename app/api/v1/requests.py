@@ -127,8 +127,9 @@ def delete_apidata():
     data = request.args.get('userToBeDeleted')
     if data:
        ##-> caso a requisição seja feita a partir do site:
-       userToBeDeleted = User.query.filter_by(email=userToBeDeleted).first()
+       userToBeDeleted = User.query.filter_by(email=data).first()
        return doDbAction(userToBeDeleted, "site", "delete") 
+
     ##-> Caso seja feito a partir do código ou postman:
     data = request.get_json("data")
     user = User.query.filter_by(email=data["myAcessData"]["email"]).first()
