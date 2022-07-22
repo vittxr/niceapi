@@ -7,7 +7,9 @@ from app.models import Api_user
 
 @api_v1.route("/get_apidata")
 def get_apidata():
-    res = requests.get("http://127.0.0.1:5000/api/v1/usuarios")
+    res = requests.get("https://niceeapi.herokuapp.com/api/v1")
+          #https://niceeapi.herokuapp.com/api/v1 (servidor)
+          #http://127.0.0.1:5000/api/v1/usuarios (local)
     return render_template('api_manager.html', users=res.json())
 
 @api_v1.route("/usuarios", methods=["GET"])
