@@ -6,6 +6,7 @@
     flex-wrap: wrap;
 }
 
+/*A width e o espaçamento dos elementos abaixo é calculado para que a soma entre eles dê 100%. Assim, eles têm uma largura total do contâiner pai (manager-api_box form)*/
 .manager-api__ipt-url-predefined {
     width: 26%;
     max-height: 32px;
@@ -23,15 +24,15 @@
 }
 
 .manager-api__type-request {
-    width: 9%;
+    width: 11%;
     max-height: 32px;
-    padding: 0.5rem;
-    margin: 0 0.5rem;
+    padding: 0.5rem 1%;
+    margin: 0 1%;
     outline: 0 !important;
 }
 
 .manager-api__submit {
-    width: 9%;
+    width: 11%;
     max-height: 32px;
     padding: 0.4rem;
     background: var(--light-orange);

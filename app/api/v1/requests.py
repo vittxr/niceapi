@@ -1,10 +1,13 @@
+
+
+
+
 ##Esse arquivo faz as requisições do usuário, requisitadas no front-end
-import email
 from flask_login import login_required, current_user
 import requests 
 from app.api.v1 import api_v1
 from flask import jsonify, redirect, render_template, request, url_for, json
-from app.models import User
+from app.models import Api_user, User
 from app import db
 from ..utils import getUrl, dataToDict, userCanMakeRequest, doDbAction
 
@@ -14,7 +17,6 @@ def main():
     ##Essa rota/função serve para obter o tipo de requisição que o usuário fez, escolhida no front-end. A partir daqui, redireciona para as rotas individuais de cada requisição (GET, POST, PUT ou DELETE)
     url = request.args.get('url')
     name = request.args.get('name')
-    password = request.args.get("password")
     email = request.args.get('email')
        #url é o que o usuário colocou no input. Ou seja, é o path para onde ele quer ir na api (a única opção é "usuarios" lol, mas poderia ter outras)
     selected_option = request.args.get('type-request')
@@ -26,14 +28,14 @@ def main():
         case ('POST'):
            usrCanMakeRequest = userCanMakeRequest()
            if usrCanMakeRequest == True:
-               return redirect(url_for("api_v1.post_apidata", url=url, name=name, email=email, password=password))
+               return redirect(url_for("api_v1.post_apidata", url=url, name=name, email=email))
            return redirect(url_for("api_v1.get_apidata", request_detail = f'{usrCanMakeRequest}'))
 
         case ('PUT'):
            usrCanMakeRequest = userCanMakeRequest()
            if usrCanMakeRequest == True:
                userToBeAltered = request.args.get('selected-user')
-               return redirect(url_for("api_v1.put_apidata", url=url, name=name, email=email, password=password, userToBeAltered=userToBeAltered))
+               return redirect(url_for("api_v1.put_apidata", url=url, name=name, email=email, userToBeAltered=userToBeAltered))
            return redirect(url_for("api_v1.get_apidata", request_detail = f'{usrCanMakeRequest}'))
 
 
@@ -41,9 +43,9 @@ def main():
            usrCanMakeRequest = userCanMakeRequest()
            if usrCanMakeRequest == True:
                userToBeDeleted = request.args.get('selected-user')
-               return redirect(url_for("api_v1.delete_apidata", url=url, name=name, email=email, password=password, userToBeDeleted=userToBeDeleted))
+               return redirect(url_for("api_v1.delete_apidata", url=url, name=name, email=email, userToBeDeleted=userToBeDeleted))
            return redirect(url_for("api_v1.get_apidata", request_detail = f'{usrCanMakeRequest}'))
-           
+        
 @api_v1.route("/get_apidata")
 def get_apidata():
     global res 
@@ -62,7 +64,7 @@ def get_apidata():
         res_json = request.args.get('request_detail')
            #detalhe da requisição POST, PUT e delete. Exibe uma mensagem falando se ela foi um sucesso ou não
 
-    return render_template('api_manager.html', res_json=res_json)
+    return render_template('api_manager.html', res_json=res_json) 
 
 
 @api_v1.route("/post_apidata", methods=["GET", "POST"])
@@ -76,7 +78,7 @@ def post_apidata():
     #full_url = getUrl(url)
 
     if data:
-        new_user = User(name=data['name'], email=data['email'], password=['password'])
+        new_user = Api_user(name=data['name'], email=data['email'])
         doDbAction(new_user, 'site', 'add')
           #dumps serializa um dicionário p/ json.
         return redirect(url_for("api_v1.get_apidata", request_detail="request_response -> success"))
@@ -90,7 +92,7 @@ def put_apidata():
     data = request.args.get('userToBeAltered')
     if data: 
        ##-> Isso caso a requisição seja feita a partir do site: 
-       userToBeAltered = User.query.filter_by(email=data).first()
+       userToBeAltered = Api_user.query.filter_by(email=data).first()
        
        userToBeAltered.name = request.args.get("name")
        userToBeAltered.email = request.args.get("email")
@@ -109,7 +111,7 @@ def put_apidata():
         """
         Caso o usuário faça requisição por fontes externas, ele precisará informar seus dados, por isso verificamos aqui se ele já está logado. No site, a rota "main" que controla tudo e colocamos que, para acessa-lá, é preciso estar logado.
         """
-        userToBeAltered = User.query.filter_by(email=data['userToBeAltered']['email']).first() 
+        userToBeAltered = Api_user.query.filter_by(email=data['userToBeAltered']['email']).first() 
        
         if userToBeAltered:
             userToBeAltered.name = data['newUser']["name"]
@@ -127,7 +129,7 @@ def delete_apidata():
     data = request.args.get('userToBeDeleted')
     if data:
        ##-> caso a requisição seja feita a partir do site:
-       userToBeDeleted = User.query.filter_by(email=data).first()
+       userToBeDeleted = Api_user.query.filter_by(email=data).first()
        return doDbAction(userToBeDeleted, "site", "delete") 
 
     ##-> Caso seja feito a partir do código ou postman:
@@ -136,5 +138,5 @@ def delete_apidata():
 
     if user and user.password == data["myAcessData"]["password"]: 
         #essa condição serve para verificar se o usuário está no banco de dados e se a senha que ele enviou na data está correta.
-        userToBeDeleted = User.query.filter_by(email=data['userToBeDeleted']['email']).first() 
+        userToBeDeleted = Api_user.query.filter_by(email=data['userToBeDeleted']['email']).first() 
         return doDbAction(userToBeDeleted, "code", "delete") 

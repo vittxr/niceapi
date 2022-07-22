@@ -1,0 +1,10 @@
+TASKS: 
+   Padronizar o nome das rotas: get_users, post_user...
+
+   Fazer responsividade
+
+   Tá sendo necessário fazer a requisição get várias vezes caso o usuário queira fazer delete ou put. Arrumar para que seja preciso fazer uma vez (usar session?)
+
+   O botão view raw não está funcionando
+
+   Refatorar o código.

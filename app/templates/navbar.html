@@ -2,39 +2,11 @@
     <div class="logo"></div>
 
     <ul class="navbar__list">
-        <a href="{{ url_for('main.api_manager') }}" ><li class="navbar__item">Api</li></a>
-        {% if not current_user.is_authenticated %}
-        <a href="{{ url_for('auth.auth_page', auth_mode='sign_in') }}"><li class="navbar__item">Sign In</li></a>
-        <a href="{{ url_for('auth.auth_page', auth_mode='sign_up') }}"><li class="navbar__item">Sign Up</li></a>
-        {% else %}
-        <li class="navbar__profile-item">
-            <img src="{{ url_for('static', filename='img/default-profile.jpg') }}" alt="profile" class="navbar__profile-img">
-        </li>
-        {% endif %}
+        <a href="" ><li class="navbar__item">
+            <i class="fa-brands fa-github"></i>
+        </li></a>
+        <a href="" ><li class="navbar__item">
+            <i class="fa-brands fa-linkedin"></i>
+        </li></a>
     </ul>
-
-    {% if current_user.is_authenticated %}
-    <div class="profile__box">
-        <ul class="profile__list">
-           <li class="profile__item">
-               <i class="fa-solid fa-user"></i>
-               <p>Profile</p>
-           </li>
-           <li class="profile__item">
-             <i class="fa-solid fa-gear"></i>
-             <p>Settings</p>
-           </li>
-           <li class="profile__item">
-             <i class="fa-solid fa-bars-progress"></i>
-             <p>Remaining Requests: {{ 10 - current_user.requests_number }}</p>
-                <!-- 10 - current_user.requests_number resulta na quantidade restante de requisições-->
-           </li>
-        </ul>
-     
-        <div class="profile__logout-box">
-           <i class="fa-solid fa-right-from-bracket"></i>
-           <a href="{{ url_for('auth.logout') }}"><p>Log out</p></a>
-        </div>
-     </div>
-     {% endif %}
 </nav>

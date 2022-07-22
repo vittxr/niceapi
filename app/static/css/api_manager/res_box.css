@@ -5,7 +5,20 @@
     margin: 3rem auto;
     background: white;
     border-radius: 2px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
 
-    overflow-x: scroll;
-    overflow-y: scroll;
+.res__box::-webkit-scrollbar {
+    width: 10px;
+}
+
+.res__box::-webkit-scrollbar-track {
+    background-color: darkgrey;
+}
+
+.res__box::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #555;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 1);
 }

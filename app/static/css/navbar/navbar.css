@@ -27,14 +27,22 @@
 .navbar__list .navbar__item {
     font-size: 1.5rem;
     letter-spacing: 0.25rem;
-    margin: 0 2rem;
+    margin: 0 0.25rem;
     cursor: pointer;
 
     /*declarações para alinhar os pseudoelementos: */
     position: relative;
     display: flex;
     justify-content: center;
+} 
+
+.navbar__item i:hover {
+    opacity: 0.75;
 }
+
+/*
+
+Esse código não está sendo usado, mas deixei comentado, pois é um efeito de hover simples, mas bem daora. Talvez eu use futuramente, por isso não quis decartá-lo.
 
 .navbar__list .navbar__item::before,
 .navbar__list .navbar__item::after {
@@ -50,4 +58,5 @@
 .navbar__list .navbar__item:hover::before,
 .navbar__list .navbar__item:hover::after {
     width: 100%;
-}
+} 
+*/

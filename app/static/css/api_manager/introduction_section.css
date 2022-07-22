@@ -9,15 +9,17 @@
     color: white;
     position: relative;
     z-index: 1;
-    /* display: flex;
+    display: flex;
     justify-content: center;
-    align-items: center; */
 }
 
 .introduction__content {
-    position: absolute;
-    bottom: 20%;
-    left: 5%; 
+    width: 80%;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
 }
 
 .introduction__title {

@@ -12,7 +12,6 @@
   <section class="introduction__section">
      <div class="introduction__content">
          <h1 class="introduction__title">NiceeApi</h1>
-         <button class="introduction__btn itd__btn-explore">Explore</button>
          <button class="introduction__btn itd__btn-guide">Guide</button>
      </div>
   </section>
@@ -22,11 +21,13 @@
   </section>
 
   <div class="manager-api__box">
-      <form action="{{ url_for('api_v1.main') }}">
+      <form action="{{ url_for('api_v1.main') }}" autocomplete="off">
           <label for="url" class="manager-api__ipt-url-predefined" name="default-url">
             https://niceeapi.herokuapp.com/api/v1
           </label>
-          <input type="text" class="manager-api__input" id="url" name="url">
+
+          <input type="text" class="manager-api__input" id="url" name="url" list="url_list" value="get_apidata">
+
           <select class="manager-api__type-request" name="type-request">
             <option>GET</option>
             <option>POST</option>
@@ -38,38 +39,41 @@
           <div class="manager-api__request-fields">
              <input type="text" class="name" placeholder="name..." name="name">
              <input type="text" class="email" placeholder="email..." name="email">
-             <input type="text" class="email" placeholder="password..." name="password">
           </div>
    
           <select class="manager-api__select-user" name="selected-user" title="é preciso fazer um GET antes para que se obtenha os dados dos usuários">
               <!--esse select será para o usuário selecionar o usuário para deletá-lo ou exclui-lo-->
                  <option selected>Selecione um usuário para alterá-lo ou deletá-lo</option>
-              {% for user in res_json %}
+              {% for user in users %}
                  <option>{{ user['email'] }}</option>
               {% endfor %}
           </select>
       </form>
   </div>
 
-  {% if res_json: %}
+  {% if users: %}
        <!--Resultado da requisição: -->
       <div class="res__box">
-         {% if res_json[0]['email'] %}
+         {% if users[0]['email'] %}
             <!--Essa comparação serve para verificar se o res_json contém dados de usuários (ele pode conter dado de requisição também)-->
-            {% for user in res_json %}
+            {% for user in users %}
                <pre>
                {{ user }} 
                </pre>
             {% endfor %}
-         {% else %}
-            <!--esse else exibe o request_detail-->  
-            <p> {{ res_json }}</p>
          {% endif %}
       </div>
-      <a href="{{ url_for('api_v1.usuarios') }}" class="view-raw__link" target="blank">View Raw</a>
+      <a href="{{ url_for('api_v1.get_apidata') }}" class="view-raw__link" target="blank">View Raw</a>
   {% endif %}
 
   <script src="{{ url_for('static', filename='js/api_manager/type-request.js') }}"></script>
   <script src="{{ url_for('static', filename='js/guide/ToggleGuideDisplay.js') }}"></script>
   <script src="{{ url_for('static', filename='js/guide/ToggleInstructionsDisplay.js') }}"></script>
+
+  {% if request_detail != "" and request_detail != null %}
+     <script>
+         alert("{{ request_detail }}")
+     </script>
+  {% endif %}
+
 {% endblock %}

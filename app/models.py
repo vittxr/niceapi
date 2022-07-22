@@ -1,8 +1,6 @@
-import datetime
-from flask_login import UserMixin
-from app import db, login_manager
-from werkzeug.security import generate_password_hash, check_password_hash
+from app import db
 
+""" 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id)) 
@@ -17,7 +15,7 @@ class User(db.Model, UserMixin):
         #db.session.remove() remove o que tem dentro da session. Isso é útil. Se der erro em subir um usuário, por faltar algum dado, ele ainda fica na session, por isso é preciso removê-lo e colocá-lo novamente (pelo menos no caso do postgresql)
 
 
-    """  @property
+    @property
     def password(self):
         raise Exception("Este não é um atributo que possa ser lido")
 
@@ -27,11 +25,25 @@ class User(db.Model, UserMixin):
    
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
-    """
+   
     def to_dict(self):
         return {
             "id":self.id, 
             "name":self.name,
             "email":self.email,
         }        
-    
+"""
+
+class Api_user(db.Model):
+   #essa tabela contém dados falsos de usuário.
+   __tablename__ = "tb_apiusers"
+   id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+   name = db.Column(db.String(64), nullable=False)
+   email = db.Column(db.String(64), nullable=False)
+
+   def to_dict(self):
+        return {
+            "id":self.id, 
+            "name":self.name,
+            "email":self.email,
+        }   
