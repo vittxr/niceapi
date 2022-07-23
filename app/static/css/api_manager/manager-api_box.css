@@ -23,7 +23,7 @@
     outline: none;
 }
 
-.manager-api__type-request {
+.manager-api__typeRequest-select {
     width: 11%;
     max-height: 32px;
     padding: 0.5rem 1%;
@@ -35,7 +35,7 @@
     width: 11%;
     max-height: 32px;
     padding: 0.4rem;
-    background: var(--light-orange);
+    background: var(--brown);
     color: white;
     font-size: 1rem;
     font-weight: 700;
@@ -44,7 +44,7 @@
 }
 
 .manager-api__submit:hover {
-    background: #dd8d2b;
+    opacity: 0.9;
 }
 
 .manager-api__request-fields {
@@ -63,7 +63,7 @@
     margin: 0.5rem 0.5rem 0.5rem 0;
 }
 
-.manager-api__select-user {
+.manager-api__user-select {
     display: none;
     width: 50%;
     margin: 1rem 0 0 26%;

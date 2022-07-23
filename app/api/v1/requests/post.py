@@ -6,7 +6,7 @@ from flask import abort, jsonify, make_response, redirect, render_template, requ
 from app.models import Api_user
 from ...utils import dataToDict, doDbAction, generateApiData
 
-@api_v1.route("/post_apidata", methods=["GET", "POST"])
+@api_v1.route("/post", methods=["GET", "POST"])
 def post_apidata():
     while len(Api_user.query.all()) < 100:
         generateApiData()

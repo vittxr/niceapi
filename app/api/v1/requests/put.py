@@ -3,7 +3,7 @@ from flask import abort, jsonify, make_response, redirect, render_template, requ
 from app.models import Api_user
 from ...utils import doDbAction, generateApiData
 
-@api_v1.route("/put_apidata", methods=["GET", "PUT"])
+@api_v1.route("/put", methods=["GET", "PUT"])
 def put_apidata():
     while len(Api_user.query.all()) < 100:
         generateApiData()
@@ -22,7 +22,7 @@ def put_apidata():
        if userToBeAltered:
           return doDbAction(userToBeAltered, "site", "add") 
                             #user; request_origin; db_session_mode
-       return render_template("api_manager.html", request_detail = "request_response -> error")
+       return redirect(url_for("main.api_manager", request_detail="request_response -> error"))
 
     ##-> Caso seja feito a partir do código ou postman:
     data = request.get_json("data")

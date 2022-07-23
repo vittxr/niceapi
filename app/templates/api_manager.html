@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="{{ url_for ('static', filename='css/guide/api_info.css') }}">
 <link rel="stylesheet" href="{{ url_for ('static', filename='css/guide/instructions.css') }}">
   <section class="introduction__section">
+     <div class="introduction__banner"></div>
      <div class="introduction__content">
          <h1 class="introduction__title">NiceeApi</h1>
          <button class="introduction__btn itd__btn-guide">Guide</button>
@@ -26,9 +27,9 @@
             https://niceeapi.herokuapp.com/api/v1
           </label>
 
-          <input type="text" class="manager-api__input" id="url" name="url" list="url_list" value="get_apidata">
+          <input type="text" class="manager-api__input" id="url" name="url" list="url_list" value="get">
 
-          <select class="manager-api__type-request" name="type-request">
+          <select class="manager-api__typeRequest-select" name="type-request">
             <option>GET</option>
             <option>POST</option>
             <option>PUT</option>
@@ -40,19 +41,20 @@
              <input type="text" class="name" placeholder="name..." name="name">
              <input type="text" class="email" placeholder="email..." name="email">
           </div>
-   
-          <select class="manager-api__select-user" name="selected-user" title="é preciso fazer um GET antes para que se obtenha os dados dos usuários">
+
+          <select class="manager-api__user-select" name="selected-user" title="é preciso fazer um GET antes para que se obtenha os dados dos usuários">
               <!--esse select será para o usuário selecionar o usuário para deletá-lo ou exclui-lo-->
-                 <option selected>Selecione um usuário para alterá-lo ou deletá-lo</option>
+              {% if users %}
               {% for user in users %}
-                 <option>{{ user['email'] }}</option>
+                 <option class="manager-api__user-option">{{ user['email'] }}</option>
               {% endfor %}
+              {% endif %}
           </select>
       </form>
   </div>
 
   {% if users: %}
-       <!--Resultado da requisição: -->
+      <!--Resultado da requisição: -->
       <div class="res__box">
          {% if users[0]['email'] %}
             <!--Essa comparação serve para verificar se o res_json contém dados de usuários (ele pode conter dado de requisição também)-->
@@ -63,16 +65,39 @@
             {% endfor %}
          {% endif %}
       </div>
-      <a href="{{ url_for('api_v1.get_apidata') }}" class="view-raw__link" target="blank">View Raw</a>
+      <a target="blank" href="{{ url_for('api_v1.usuarios') }}" class="view-raw__link">View Raw</a>
   {% endif %}
 
-  <script src="{{ url_for('static', filename='js/api_manager/type-request.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/api_manager/typeRequest.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/api_manager/handleUsersData.js') }}"></script>
   <script src="{{ url_for('static', filename='js/guide/ToggleGuideDisplay.js') }}"></script>
   <script src="{{ url_for('static', filename='js/guide/ToggleInstructionsDisplay.js') }}"></script>
 
-  {% if request_detail != "" and request_detail != null %}
+  {% if request_detail != "" and request_detail != None and request_detail|length != 0%}
      <script>
-         alert("{{ request_detail }}")
+         const pageAccessedByReload = (
+         (window.performance.navigation && window.performance.navigation.type === 1) ||
+            window.performance
+               .getEntriesByType('navigation')
+               .map((nav) => nav.type)
+               .includes('reload')
+         );
+         /*pageAcessedByReload é uma variável que retorna true se:
+             window.perfomance.navigation existir e o seu tipo for true. 
+               basicamente, o window.perfomance.navigation.type retorna uma propriedade (q é ma constante), informando como a navegação na página foi feita
+                  0: TYPE_NAVIGATE (acessed by link, form submission, script, etc)
+                  1: TYPE_RELOAD
+                  ... 
+               É importante ressaltar que esse comando está 'deprecated', mas ainda usei, pois a constante usa esse método e mais um. Então há duas formas de verificar isso.
+            A segunda forma é: 
+               Se window.performance incluir reload, retorna true. Note que isso é feito usando os métodos: getEntriesByType, que retorna uma lista de objetos de PerformanceEntry. Esse qual contém: PerformanceEntry.name, PerformanceEntry.entryType, PerformanceEntry.startTime e PerformanceEntry.duration. Enfim, basicamente, se chama o método getEntriesByType, passando como parâmetros navigation. 
+            
+         */
+
+         if (!pageAccessedByReload) {
+            //Exibe o detalhe do request apenas se o usuário foi redirecionado para essa rota. Ou seja, é preciso haver put, post ou delete para isso acontecer. Assim, se evitar o request_detail seja exibido quando o usuário recarregar a página.
+            alert("{{ request_detail }}")
+         }
      </script>
   {% endif %}
 

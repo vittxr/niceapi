@@ -1,7 +1,3 @@
-
-
-
-
 ##Esse arquivo faz as requisições do usuário, requisitadas no front-end
 from flask_login import login_required, current_user
 import requests 
