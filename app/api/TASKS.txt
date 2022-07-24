@@ -1,10 +1,2 @@
 TASKS: 
-   Padronizar o nome das rotas: get_users, post_user...
-
-   Fazer responsividade
-
-   Tá sendo necessário fazer a requisição get várias vezes caso o usuário queira fazer delete ou put. Acredito que fazer uma lista para isso seja a melhor solução. Porém, quando o usuário fazer um delete, será preciso alterar a lista - em andamento! 
- 
-   Terminar o guide (guia)
-
    Refatorar o código.

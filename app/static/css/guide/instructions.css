@@ -1,8 +1,22 @@
+.guide__intructions-title.python-title {
+    margin-top: 4rem;
+}
+
 .guide__instructions-box {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.guide__instructions-row {
+    display: flex;
+    width: 60%;
+}
+
+.guide__row-paragraph-box{
+    display: flex;
+    flex-direction: column;
 }
 
 .instructions__code-boxes {
@@ -19,8 +33,6 @@
 }
 
 .instructions__button-box {
-    position: absolute; 
-    bottom: 0%;
     padding: 0.5rem 0;
 }
 
@@ -40,4 +52,14 @@
 
 .post-request, .put-request, .delete-request {
     display: none;
+}
+
+@media (max-width: 850px) {
+    .instructions__button-box {
+        position: static; 
+    }
+
+    .instructions__code {
+        font-size: 0.5rem;
+    }
 }

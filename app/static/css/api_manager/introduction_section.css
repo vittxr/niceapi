@@ -51,3 +51,10 @@
     background: white;
     color: var(--light-brown);
 }
+
+/*-> Responsividade: */
+@media (max-width: 850px) {
+   .introduction__banner {
+      display: none;
+   }   
+}

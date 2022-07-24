@@ -20,7 +20,7 @@ def doDbAction(user, request_origin, db_session_mode):
         db.session.delete(user)
         db.session.commit()
     
-    if request_origin == "code": 
+    if request_origin == "code" or request_origin=="postman": 
        return jsonify({"status": "sucess", "message": "the request was sucessful"})
          #caso request_origin seja de código, retorna-se um json para o usuário.
     elif request_origin == "site": 

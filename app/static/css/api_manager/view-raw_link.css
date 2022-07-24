@@ -1,17 +1,22 @@
-.view-raw__link {
-    display: block;
-    width: 10%;
+.manager-api__raw-link-box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.manager-api__raw-link {
+    font-size: 1.25rem;
+    display: inline-block;
     text-decoration: none; 
     color: white;
     background: var(--light-brown);
     border: 1px solid var(--light-brown);
     border-radius: 2px;
-    padding: 0.5rem 1rem;
-    margin: 1rem auto;
-    text-align: center;
+    padding: 0.5rem 2rem;
+    margin: 1rem 0;
 }
 
-.view-raw__link:hover {
+.manager-api__raw-link:hover {
     background: white;
     color: var(--light-brown);
 }

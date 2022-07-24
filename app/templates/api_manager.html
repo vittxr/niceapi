@@ -22,27 +22,32 @@
   </section>
 
   <div class="manager-api__box">
-      <form action="{{ url_for('api_v1.main') }}" autocomplete="off">
-          <label for="url" class="manager-api__ipt-url-predefined" name="default-url">
-            https://niceeapi.herokuapp.com/api/v1
-          </label>
+      <form action="/api/v1/get" autocomplete="off" class="manager-api__form" method="post">
+         <div class="manager-api__ipt-search-box">
+            <!-- <label for="url" class="manager-api__ipt-url-predefined" name="default-url">
+               https://niceeapi.herokuapp.com/api/v1
+            </label> -->
 
-          <input type="text" class="manager-api__input" id="url" name="url" list="url_list" value="get">
+           <!--  <input type="text" class="manager-api__input" id="url" name="url" list="url_list" placeholder="https://niceeapi.herokuapp.com/api/v1/get"> -->
+            <select name="url" class="manager-api__route-select">
+               <option value="https://niceeapi.herokuapp.com/api/v1/get">https://niceeapi.herokuapp.com/api/v1/get</option>
+               <option value="https://niceeapi.herokuapp.com/api/v1/post">https://niceeapi.herokuapp.com/api/v1/post</option>
+               <option value="https://niceeapi.herokuapp.com/api/v1/put">https://niceeapi.herokuapp.com/api/v1/put</option>
+               <option value="https://niceeapi.herokuapp.com/api/v1/delete">https://niceeapi.herokuapp.com/api/v1/delete</option>
+            </select>
+     
 
-          <select class="manager-api__typeRequest-select" name="type-request">
-            <option>GET</option>
-            <option>POST</option>
-            <option>PUT</option>
-            <option>DELETE</option>
-          </select>
-          <input type="submit" class="manager-api__submit" value="submit">
+            <input type="hidden" name="requestMadeBySite" value="1">
+               <!--Esse input 'requestMadeBySite' serve para a rota no backend saber se a requisição foi feita pelo site ou pelo código-->
+         </div>
+
 
           <div class="manager-api__request-fields">
              <input type="text" class="name" placeholder="name..." name="name">
              <input type="text" class="email" placeholder="email..." name="email">
           </div>
 
-          <select class="manager-api__user-select" name="selected-user" title="é preciso fazer um GET antes para que se obtenha os dados dos usuários">
+          <select class="manager-api__user-select" name="selected-user">
               <!--esse select será para o usuário selecionar o usuário para deletá-lo ou exclui-lo-->
               {% if users %}
               {% for user in users %}
@@ -50,6 +55,9 @@
               {% endfor %}
               {% endif %}
           </select>
+         <div class="manager-api__submit-box">
+            <input type="submit" class="manager-api__submit" value="submit">
+         </div>
       </form>
   </div>
 
@@ -65,7 +73,9 @@
             {% endfor %}
          {% endif %}
       </div>
-      <a target="blank" href="{{ url_for('api_v1.usuarios') }}" class="view-raw__link">View Raw</a>
+      <div class="manager-api__raw-link-box">
+         <a target="blank" href="{{ url_for('api_v1.usuarios') }}" class="manager-api__raw-link">raw</a>
+      </div>
   {% endif %}
 
   <script src="{{ url_for('static', filename='js/api_manager/typeRequest.js') }}"></script>

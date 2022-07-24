@@ -40,6 +40,6 @@ function doActionInApiUsers() {
 
     user_disabled = localStorage.getItem("user_disabled")
     localStorage.setItem("user_disabled", user_disabled +',' + user_selected.toString())
-      //user_disabled deve ser como uma lista de usuário desabilitados. Se houver um delete ou put, esse usuário é desabilitado. Isso pode acontecer várias vezes, por isso há a concatenação da variável localStorage com o novo usuário deletado ou alterado.
+       //user_disabled deve ser como uma lista de usuário desabilitados. Se houver um delete ou put, esse usuário é desabilitado. Isso pode acontecer várias vezes, por isso há a concatenação da variável localStorage com o novo usuário deletado ou alterado. 
 }
 
