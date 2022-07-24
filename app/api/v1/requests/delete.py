@@ -18,7 +18,7 @@ def delete_apidata():
       userToBeDeleted = Api_user.query.filter_by(email=data).first()
       if userToBeDeleted: 
          return doDbAction(userToBeDeleted, "site", "delete") 
-      return redirect(url_for("main.api_manager", request_detail="request_response -> error"))
+      return redirect(url_for("main.api_manager", request_detail="request_response: error"))
 
    ##-> Caso a requisição seja feito a partir do postman:      
    email = request.args.get('email')

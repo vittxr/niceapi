@@ -24,7 +24,7 @@ def doDbAction(user, request_origin, db_session_mode):
        return jsonify({"status": "sucess", "message": "the request was sucessful"})
          #caso request_origin seja de código, retorna-se um json para o usuário.
     elif request_origin == "site": 
-       return redirect(url_for("main.api_manager", request_detail="request_response -> success"))
+       return redirect(url_for("main.api_manager", request_detail="request_response: success"))
           #caso request_origin seja do site, redireciona o usuário para a página principal da api, com uma resposta de sucesso.
 
 from faker import Faker

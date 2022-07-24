@@ -20,7 +20,7 @@ def post_apidata():
         new_user = Api_user(name=data_dict['name'], email=data_dict['email'])
         if new_user: 
            return doDbAction(new_user, 'site', 'add')
-        return render_template("api_manager.html", request_detail = "request_response -> error")
+        return render_template("api_manager.html", request_detail = "request_response: error")
 
     ##caso a requisição seja por postman:           
     data = [request.args.get("name"), request.args.get('email')]

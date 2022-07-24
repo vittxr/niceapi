@@ -16,13 +16,13 @@ def put_apidata():
        ##-> Isso caso a requisição seja feita a partir do site: 
        userToBeAltered = Api_user.query.filter_by(email=data).first()
        
-       userToBeAltered.name = request.args.get("name")
-       userToBeAltered.email = request.args.get("email")
+       userToBeAltered.name = request.form.get("name")
+       userToBeAltered.email = request.form.get("email")
        
        if userToBeAltered:
           return doDbAction(userToBeAltered, "site", "add") 
                             #user; request_origin; db_session_mode
-       return redirect(url_for("main.api_manager", request_detail="request_response -> error"))
+       return redirect(url_for("main.api_manager", request_detail="request_response: error"))
 
 
     ##-> Caso a requisição seja feito a partir do postman:      
