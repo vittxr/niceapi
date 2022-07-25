@@ -11,8 +11,8 @@ def get_apidata():
     while len(Api_user.query.all()) < 100:
         generateApiData()
 
-    res = requests.get("https://niceeapi.herokuapp.com/api/v1/usuarios")
-          #https://niceeapi.herokuapp.com/api/v1 (servidor)
+    res = requests.get("http://127.0.0.1:5000/api/v1/usuarios")
+          #https://niceeapi.herokuapp.com/api/v1/usuarios (servidor)
           #http://127.0.0.1:5000/api/v1/usuarios (local)
 
     if request.form.get("requestMadeBySite"):

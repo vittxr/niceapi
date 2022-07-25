@@ -1,8 +1,5 @@
 //Esse script guardará o resultado da requisição, para que não seja preciso fazer várias vezes. Os users serão guardados em uma lista e conforme haver o processamento no backend (quando houver delete, post ou put), nesse script altera-se a lista para deixar ela igual aos dados da api. Assim, não precisa fazer várias requisições.
 
-var api_users = localStorage.getItem("users").split(",")
-   //localStorage cria uma variável guardada na página, até que o usuário feche ela. Ou seja, caso recarregada, essa variável ainda tem o mesmo valor.
-
 var submit_btn = document.querySelector(".manager-api__submit")
 var user_select = document.querySelector(".manager-api__user-select")
 var typeRequest_select = document.querySelector(".manager-api__typeRequest-select")
@@ -16,6 +13,7 @@ if (document.querySelectorAll(".manager-api__user-option").length > 1) {
         apiUsersList.push(api_users[i].innerHTML)
     }
     localStorage.setItem("users", apiUsersList.join(','))
+        //localStorage cria uma variável guardada na página, até que o usuário feche ela. Ou seja, caso recarregada, essa variável ainda tem o mesmo valor.
 } else {
     //Esse else serve para criar novas opções para o select, pois no caso de uma requisição diferente de get, os options ficam vazios. Por isso, cria-se options usando o codigo abaixo
     let api_users = localStorage.getItem("users").split(",")

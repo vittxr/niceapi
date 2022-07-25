@@ -13,14 +13,18 @@ def post_apidata():
 
     ##Caso o usuário faça a requisição pelo site:
     if type(data[0]) != NoneType:
-        data_dict = dataToDict( 
-            name = data[0],
-            email = data[1],
-        ) 
-        new_user = Api_user(name=data_dict['name'], email=data_dict['email'])
-        if new_user: 
-           return doDbAction(new_user, 'site', 'add')
-        return redirect(url_for("main.api_manager", request_detail="request_response: error"))
+        try:
+            data_dict = dataToDict( 
+                name = data[0],
+                email = data[1],
+            ) 
+            new_user = Api_user(name=data_dict['name'], email=data_dict['email'])
+            if new_user: 
+               return doDbAction(new_user, 'site', 'add')
+            return redirect(url_for("main.api_manager", request_detail="request_response: error"))
+        except: 
+            return redirect(url_for("main.api_manager", request_detail="request_response: this user already exists."))
+
 
 
     ##caso a requisição seja por postman ou código:            

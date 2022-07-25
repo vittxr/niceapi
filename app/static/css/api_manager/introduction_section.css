@@ -52,9 +52,22 @@
     color: var(--light-brown);
 }
 
+.introduction__credits-link {
+    font-size: 0.8;
+    color: white;
+    position: absolute;
+    bottom: 3%;
+    right: 3%;
+}
+
+.introduction__credits-link:hover {
+    opacity: 0.8;
+}
+
 /*-> Responsividade: */
 @media (max-width: 850px) {
-   .introduction__banner {
+   .introduction__banner,
+   .introduction__credits-link {
       display: none;
-   }   
+   }  
 }
