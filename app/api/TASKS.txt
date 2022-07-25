@@ -1,2 +1,11 @@
 TASKS: 
+   O algoritmo do código pode ser usado para o postman e para o codigo!!!
+
+   é possível criar vários usuários iguais pelo postman.
+
+   Limitar o put de um usuário com email que já exista.  
+
+   O models (tabela) de api_users não tem o email como unico. 
+   Dar créditos para quem fez o banner.
+
    Refatorar o código.

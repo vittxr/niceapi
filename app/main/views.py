@@ -2,7 +2,6 @@ from flask import redirect, render_template, request
 from app.main import main
 from app.api.utils import generateApiData
 from ..models import Api_user
-import sys
 
 request_detail = None 
 @main.route("/")

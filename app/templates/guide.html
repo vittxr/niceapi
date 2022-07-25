@@ -3,88 +3,55 @@
 </button> 
 
 <div class="guide__instructions-box">
-    <h1 class="guide__intructions-title">Postman</h1>
-    <div class="guide__instructions-row">
-       <p class="guide__paragraph-typeRequest-row">get:&nbsp;</p>
-       <p>/api/v1/get</p>
-    </div>
-
-    <div class="guide__instructions-row">
-        <p class="guide__paragraph-typeRequest-row">post:&nbsp;</p>
-        <p>/api/v1/post?name=teste2&email=teste2@gmail.com</p>
-    </div>
-    
-    <div class="guide__instructions-row">
-        <p class="guide__paragraph-typeRequest-row">put:&nbsp;</p>
-        <div class="guide__row-paragraph-box">
-           <p>/api/v1/put?</p>
-           <p>newUserName=teste&</p>
-           <p>newUserEmail=teste@gmail.com&</p>
-           <p>userToBeAltered=TylerCastillo2@gmail</p>
-        </div>
-    </div>
-
-    <div class="guide__instructions-row">
-        <p class="guide__paragraph-typeRequest-row">delete:&nbsp;</p>
-        <p>/api/v1/delete?userToBeDeleted=test@gmail</p>
-    </div>
-   
     <h1 class="guide__intructions-title python-title">Python</h1>
     <div class="instructions__code-boxes">
         <div class="instructions__code-box">
             <pre class="instructions__code get-request">
-from json import dumps
 import requests 
 
 url = f"https://niceeapi.herokuapp.com/api/v1/"
 
 def get_data(): 
-    return requests.get(url+"/usuarios").json()
+    res = requests.get(url+"/get").json()
+    return res
 
-print(get_data()) 
+print(get_data())
             </pre>
 
             <pre class="instructions__code post-request">
-url = f"https://niceeapi.herokuapp.com/api/v1/"
-def post_data():
-    data = { #new user
-        "name":"test",
-        "email":"test@gmail.com",
-    } 
-     
-    res = requests.post(url+"/post", data=dumps(data))
-    return print(res.json(), res.status_code) 
+import requests 
 
-post = post_data()
-print(post) 
+url = f"https://niceeapi.herokuapp.com/api/v1/"
+
+def post_data():
+    res = requests.post(url+"/post?name=teste2&email=teste2@gmail.com")
+    return print(res.json(), res.status_code)
+            
+post_data()
             </pre>
 
             <pre class="instructions__code put-request">
-data = {
-    "userToBeAltered": {
-        "email":"test@gmail.com", #é necessário passar apenas o email
-    },
-    "newUser": {
-        "name": "testUpdated",
-        "email": "testUpdated@gmail.com",
-    }
-}
+import requests 
 
-res = requests.put(url+"/put", data=dumps(data))
-return print(res.json(), res.status_code)
+url = f"https://niceeapi.herokuapp.com/api/v1/"
+
+def put_data():
+    res = requests.put(url+"/put?
+                            newUserName=testeUpdate&
+                            newUserEmail=testeUpdate@gmail.com&
+                            userToBeAltered=teste@gmail.com")
+    return print(res.json(), res.status_code)
 
 put_data()
             </pre>
             <pre class="instructions__code delete-request">
-def delete_data():
-data = {
-    "userToBeDeleted": {
-        "email": "test@gmail.com"
-    }     
-}
+import requests 
 
-res = requests.delete(url+"/delete", data=dumps(data))
-return print(res.json(), res.status_code)
+url = f"https://niceeapi.herokuapp.com/api/v1/"
+                
+def delete_data():
+    res = requests.delete(url+"/delete?email=teste4@gmail.com")
+    return print(res.json(), res.status_code)
 
 delete_data()
              </pre>
