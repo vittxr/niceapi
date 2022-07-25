@@ -1,4 +1,4 @@
 TASKS: 
-   O select do delete e o put não está funcionando no servidor. 
-
+   Tirar o css desnecessário.
+   
    Refatorar o código.

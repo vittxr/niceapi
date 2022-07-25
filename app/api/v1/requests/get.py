@@ -24,7 +24,7 @@ def get_apidata():
 
 @api_v1.route("/usuarios", methods=["GET"])
 def usuarios():
-    users = Api_user.query.all()
+    users = Api_user.query.order_by(Api_user.name).all()
     for i in range(len(users)):
         users[i] = users[i].to_dict()
     return jsonify(users)
