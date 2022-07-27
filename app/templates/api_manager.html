@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="{{ url_for ('static', filename='css/api_manager/res_box.css') }}">
 <link rel="stylesheet" href="{{ url_for ('static', filename='css/api_manager/view-raw_link.css') }}">
 <link rel="stylesheet" href="{{ url_for ('static', filename='css/guide/guide.css') }}">
-<link rel="stylesheet" href="{{ url_for ('static', filename='css/guide/api_info.css') }}">
 <link rel="stylesheet" href="{{ url_for ('static', filename='css/guide/instructions.css') }}">
   <section class="introduction__section">
      <div class="introduction__banner"></div>
@@ -39,8 +38,9 @@
 
 
           <div class="manager-api__request-fields">
-             <input type="text" class="name" placeholder="name..." name="name">
-             <input type="text" class="email" placeholder="email..." name="email">
+             <input type="text" class="name" placeholder="name..." name="name" pattern=".*\S+.*" >
+             <input type="text" class="email" placeholder="email..." name="email" pattern=".*\S+.*" >
+               <!--Esse patern evita que o input seja validado com espaços em brancos. No caso o campo recebe o atributo required por js, então isso faz com que, se o usuário preencher com espaços em brancos, o input ainda seja requirido.-->
           </div>
 
           <select class="manager-api__user-select" name="selected-user">
@@ -79,7 +79,7 @@
   <script src="{{ url_for('static', filename='js/guide/ToggleGuideDisplay.js') }}"></script>
   <script src="{{ url_for('static', filename='js/guide/ToggleInstructionsDisplay.js') }}"></script>
 
-  {% if request_detail != "" and request_detail != None and request_detail|length != 0%}
+  {% if request_detail != "" and request_detail != None and request_detail|length != 0 %}
      <script>
          const pageAccessedByReload = (
          (window.performance.navigation && window.performance.navigation.type === 1) ||

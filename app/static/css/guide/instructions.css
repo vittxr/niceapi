@@ -1,22 +1,12 @@
-.guide__intructions-title.python-title {
-    margin-top: 4rem;
-}
-
 .guide__instructions-box {
-    width: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
-
-.guide__instructions-row {
-    display: flex;
-    width: 60%;
-}
-
-.guide__row-paragraph-box{
-    display: flex;
-    flex-direction: column;
+ 
+.guide__intructions-title.python-title {
+    text-align: center;
 }
 
 .instructions__code-boxes {
