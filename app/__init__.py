@@ -9,6 +9,7 @@ def create_app(config_name):
     app = Flask(__name__)
     CORS(app)
        #Isso permite que qualquer domínio da internet acesse nossas rotas. Isso permite que um usuário faça um aplicação e fazer requisições por front-end.
+       #Além disso, pode-se passar mais argumentos. Por exemplo: resources(r'api/route')
     app.config.from_object(config[config_name])
 
     db.init_app(app)
