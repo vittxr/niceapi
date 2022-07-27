@@ -1,4 +1,8 @@
 TASKS: 
    Tirar o css desnecessário.
-   
+
+   arrumar foto do gato (dxar o fundo com a mesma cor que fundo do banner)
+
+   os nomes podem ser vazios (arrumar isso)
+
    Refatorar o código.
