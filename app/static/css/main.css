@@ -25,9 +25,9 @@
     --light-brown: #BF8F73;
     --dark-brown: #402718;
     --black: #0D0908;
-    --light-gray: #D8E0F2;
+    --light-gray: #d3d2c8bf;
 }
 
 body { 
-    background: #F2F2F2; 
+    background: var(--light-gray); 
 }
